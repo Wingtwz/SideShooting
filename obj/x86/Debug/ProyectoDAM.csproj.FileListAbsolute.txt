@@ -21,3 +21,5 @@ c:\users\ccarrera\documents\visual studio 2017\Projects\ProyectoDAM\ProyectoDAM\
 c:\users\ccarrera\documents\visual studio 2017\Projects\ProyectoDAM\ProyectoDAM\obj\x86\Debug\ProyectoDAM.csprojResolveAssemblyReference.cache
 c:\users\ccarrera\documents\visual studio 2017\Projects\ProyectoDAM\ProyectoDAM\obj\x86\Debug\ProyectoDAM.exe
 c:\users\ccarrera\documents\visual studio 2017\Projects\ProyectoDAM\ProyectoDAM\obj\x86\Debug\ProyectoDAM.pdb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\character.xnb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\Overworld.xnb

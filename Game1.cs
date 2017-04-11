@@ -12,6 +12,9 @@ namespace ProyectoDAM
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Texture2D character;
+        private Texture2D overworld;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,6 +44,8 @@ namespace ProyectoDAM
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            character = Content.Load<Texture2D>("Images/character");
+            overworld = Content.Load<Texture2D>("Images/Overworld");
         }
 
         /// <summary>
@@ -76,6 +81,12 @@ namespace ProyectoDAM
             GraphicsDevice.Clear(Color.LightBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(overworld, new Rectangle(0, 0, 800, 480), Color.White);
+            spriteBatch.Draw(character, new Vector2(0, 0), Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
