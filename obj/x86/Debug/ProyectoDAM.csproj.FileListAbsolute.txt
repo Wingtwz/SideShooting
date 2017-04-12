@@ -23,3 +23,9 @@ c:\users\ccarrera\documents\visual studio 2017\Projects\ProyectoDAM\ProyectoDAM\
 c:\users\ccarrera\documents\visual studio 2017\Projects\ProyectoDAM\ProyectoDAM\obj\x86\Debug\ProyectoDAM.pdb
 C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\character.xnb
 C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\Overworld.xnb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\SmileyWalk.xnb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\arrow.xnb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\blue.xnb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\green.xnb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Images\red.xnb
+C:\Users\CCARRERA\Documents\Visual Studio 2017\Projects\ProyectoDAM\ProyectoDAM\bin\Windows\x86\Debug\Content\Fonts\FpsFont.xnb
