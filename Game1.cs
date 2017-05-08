@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace ProyectoDAM
 {
@@ -32,6 +34,15 @@ namespace ProyectoDAM
         private float distance = 100;
 
         private AnimatedSprite animatedSprite;
+
+        private static AppCfg ReadSettings()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            return builder.Build().Get<AppCfg>();
+        }
 
         public Game1()
         {
