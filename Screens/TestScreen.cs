@@ -28,18 +28,18 @@ namespace ProyectoDAM.Screens
 
         private AnimatedSprite animatedSprite;
 
-        public TestScreen(ContentManager content) : base(content)
+        public TestScreen(ContentManager content, GraphicsDevice graphicsDevice) : base(content, graphicsDevice)
         {
             this.LoadContent();
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        public override void Draw(GameTime gameTime)
         {
             float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+            SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
 
-            spriteBatch.DrawString(fpsFont, string.Format("FPS: {0:0.00}", frameRate), new Vector2(0, 0), Color.White);
+            SpriteBatch.DrawString(fpsFont, string.Format("FPS: {0:0.00}", frameRate), new Vector2(0, 0), Color.White);
 
             /*spriteBatch.Draw(overworld, new Rectangle(0, 0, 800, 480), Color.White);
             spriteBatch.Draw(character, new Vector2(0, 0), Color.White);
@@ -63,15 +63,15 @@ namespace ProyectoDAM.Screens
 
             Vector2 center = new Vector2(300, 140);
 
-            spriteBatch.Draw(blue, center + bluePosition, Color.White);
-            spriteBatch.Draw(green, center + greenPosition, Color.White);
-            spriteBatch.Draw(red, center + redPosition, Color.White);
+            SpriteBatch.Draw(blue, center + bluePosition, Color.White);
+            SpriteBatch.Draw(green, center + greenPosition, Color.White);
+            SpriteBatch.Draw(red, center + redPosition, Color.White);
 
-            spriteBatch.End();
+            SpriteBatch.End();
 
             //animatedSprite.Draw(spriteBatch, new Vector2(400, 200));
 
-            base.Draw(gameTime, spriteBatch, graphicsDevice);
+            base.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)

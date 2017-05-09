@@ -11,16 +11,16 @@ namespace ProyectoDAM
         Rectangle rectPlay;
         Color color = Color.LightGray;
 
-        public MenuScreen(ContentManager content) : base(content)
+        public MenuScreen(ContentManager content, GraphicsDevice graphicsDevice) : base(content, graphicsDevice)
         {
             rectPlay = new Rectangle(100, 100, 100, 30);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        public override void Draw(GameTime gameTime)
         {
-            graphicsDevice.Clear(color);
+            GraphicsDevice.Clear(color);
 
-            base.Draw(gameTime, spriteBatch, graphicsDevice);
+            base.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -29,7 +29,7 @@ namespace ProyectoDAM
 
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                GameMain.currentScreen = new TestScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory));
+                GameMain.currentScreen = new TestScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
             }
 
             base.Update(gameTime);
