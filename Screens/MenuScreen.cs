@@ -8,17 +8,27 @@ namespace ProyectoDAM
 {
     public class MenuScreen : Screen
     {
-        Rectangle rectPlay;
-        Color color = Color.LightGray;
+        private SpriteFont testFont;
 
         public MenuScreen(ContentManager content, GraphicsDevice graphicsDevice) : base(content, graphicsDevice)
         {
-            rectPlay = new Rectangle(100, 100, 100, 30);
+            this.LoadContent();
+        }
+
+        public override void LoadContent()
+        {
+            testFont = Content.Load<SpriteFont>("Fonts/Fpsfont");
         }
 
         public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(color);
+            GraphicsDevice.Clear(Color.LightGray);
+
+            SpriteBatch.Begin();
+
+            SpriteBatch.DrawString(testFont, "Esto es un menu, pulsa para continuar", new Vector2(250), Color.Black);
+
+            SpriteBatch.End();
 
             base.Draw(gameTime);
         }
