@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
     <Compile Include="AppCfg.cs" />
+    <Compile Include="ConnectionManager.cs" />
     <Compile Include="GameMain.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Program.cs" />
