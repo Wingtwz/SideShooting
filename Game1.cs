@@ -91,7 +91,7 @@ namespace ProyectoDAM
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            currentScreen.Draw(gameTime, spriteBatch);
+            currentScreen.Draw(gameTime, spriteBatch, GraphicsDevice);
 
             base.Draw(gameTime);
         }

@@ -28,7 +28,7 @@ namespace ProyectoDAM.Screens
 
         private AnimatedSprite animatedSprite;
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -66,7 +66,7 @@ namespace ProyectoDAM.Screens
 
             //animatedSprite.Draw(spriteBatch, new Vector2(400, 200));
 
-            base.Draw(gameTime, spriteBatch);
+            base.Draw(gameTime, spriteBatch, graphicsDevice);
         }
 
         public override void Update(GameTime gameTime)

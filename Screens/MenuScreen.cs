@@ -12,9 +12,9 @@ namespace ProyectoDAM
             rectPlay = new Rectangle(100, 100, 100, 30);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            base.Draw(gameTime, spriteBatch);
+            base.Draw(gameTime, spriteBatch, graphicsDevice);
         }
 
         public override void Update(GameTime gameTime)
