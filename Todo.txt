@@ -1,0 +1,2 @@
+﻿cambiar el gestor de escenas a usar un stack lifo?
+modificar el unload en los destructores de las escenas
