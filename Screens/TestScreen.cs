@@ -7,7 +7,6 @@ namespace ProyectoDAM.Screens
 {
     public class TestScreen : Screen
     {
-        SpriteBatch spriteBatch;
         private Texture2D overworld;
         private SpriteFont fpsFont;
         private int score = 0;
@@ -29,7 +28,7 @@ namespace ProyectoDAM.Screens
 
         private AnimatedSprite animatedSprite;
 
-        public override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -67,7 +66,7 @@ namespace ProyectoDAM.Screens
 
             //animatedSprite.Draw(spriteBatch, new Vector2(400, 200));
 
-            base.Draw(gameTime);
+            base.Draw(gameTime, spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
@@ -83,11 +82,8 @@ namespace ProyectoDAM.Screens
             base.Update(gameTime);
         }
 
-        public override void LoadContent(ContentManager content, GraphicsDevice graphicsDevice)
+        public override void LoadContent(ContentManager content)
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(graphicsDevice);
-
             // TODO: use this.Content to load your game content here
             Texture2D character = content.Load<Texture2D>("Images/SmileyWalk");
             animatedSprite = new AnimatedSprite(character, 4, 4);
@@ -98,7 +94,7 @@ namespace ProyectoDAM.Screens
             green = content.Load<Texture2D>("Images/green");
             blue = content.Load<Texture2D>("Images/blue");
 
-            base.LoadContent(content, graphicsDevice);
+            base.LoadContent(content);
         }
     }
 }

@@ -6,11 +6,11 @@ namespace ProyectoDAM
 {
     public abstract class Screen
     {
-        public virtual void Draw(GameTime gameTime) { }
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) { }
 
         public virtual void Update(GameTime gameTime) { }
 
-        public virtual void LoadContent(ContentManager content, GraphicsDevice graphicsDevice) { }
+        public virtual void LoadContent(ContentManager content) { }
 
         public virtual void UnloadContent() { }
     }

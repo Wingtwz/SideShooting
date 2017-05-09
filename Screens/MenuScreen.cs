@@ -1,12 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ProyectoDAM
 {
     public class MenuScreen : Screen
     {
-        public override void Draw(GameTime gameTime)
+        Rectangle rectPlay;
+
+        public MenuScreen()
         {
-            base.Draw(gameTime);
+            rectPlay = new Rectangle(100, 100, 100, 30);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            base.Draw(gameTime, spriteBatch);
         }
 
         public override void Update(GameTime gameTime)

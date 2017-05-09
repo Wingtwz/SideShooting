@@ -12,6 +12,7 @@ namespace ProyectoDAM
     /// </summary>
     public class Game1 : Game
     {
+        SpriteBatch spriteBatch;
         GraphicsDeviceManager graphics;
         private Screen currentScreen;
 
@@ -50,7 +51,10 @@ namespace ProyectoDAM
         /// </summary>
         protected override void LoadContent()
         {
-            currentScreen.LoadContent(Content, GraphicsDevice);
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            currentScreen.LoadContent(Content);
         }
 
         /// <summary>
@@ -87,7 +91,7 @@ namespace ProyectoDAM
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            currentScreen.Draw(gameTime);
+            currentScreen.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
         }
