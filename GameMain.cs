@@ -43,7 +43,7 @@ namespace ProyectoDAM
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            currentScreen = new MenuScreen(Content);
+            currentScreen = new MenuScreen(Content, GraphicsDevice);
 
             base.Initialize();
         }
@@ -92,7 +92,7 @@ namespace ProyectoDAM
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            currentScreen.Draw(gameTime, spriteBatch, GraphicsDevice);
+            currentScreen.Draw(gameTime);
 
             base.Draw(gameTime);
         }
