@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ProyectoDAM.Screens;
@@ -10,11 +11,13 @@ namespace ProyectoDAM
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class GameMain : Game
     {
+        public static Screen currentScreen;
+        public static ContentManager contentManager;
+
         SpriteBatch spriteBatch;
         GraphicsDeviceManager graphics;
-        private Screen currentScreen;
 
         private static AppCfg ReadSettings()
         {
@@ -25,7 +28,7 @@ namespace ProyectoDAM
             return builder.Build().Get<AppCfg>();
         }
 
-        public Game1()
+        public GameMain()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -40,7 +43,7 @@ namespace ProyectoDAM
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            currentScreen = new TestScreen();
+            currentScreen = new MenuScreen(Content);
 
             base.Initialize();
         }
@@ -53,8 +56,6 @@ namespace ProyectoDAM
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            currentScreen.LoadContent(Content);
         }
 
         /// <summary>

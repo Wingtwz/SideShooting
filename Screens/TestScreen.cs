@@ -28,6 +28,11 @@ namespace ProyectoDAM.Screens
 
         private AnimatedSprite animatedSprite;
 
+        public TestScreen(ContentManager content) : base(content)
+        {
+            this.LoadContent();
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -82,19 +87,19 @@ namespace ProyectoDAM.Screens
             base.Update(gameTime);
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent()
         {
             // TODO: use this.Content to load your game content here
-            Texture2D character = content.Load<Texture2D>("Images/SmileyWalk");
+            Texture2D character = Content.Load<Texture2D>("Images/SmileyWalk");
             animatedSprite = new AnimatedSprite(character, 4, 4);
-            overworld = content.Load<Texture2D>("Images/Overworld");
-            fpsFont = content.Load<SpriteFont>("Fonts/Fpsfont");
-            arrow = content.Load<Texture2D>("Images/arrow");
-            red = content.Load<Texture2D>("Images/red");
-            green = content.Load<Texture2D>("Images/green");
-            blue = content.Load<Texture2D>("Images/blue");
+            overworld = Content.Load<Texture2D>("Images/Overworld");
+            fpsFont = Content.Load<SpriteFont>("Fonts/Fpsfont");
+            arrow = Content.Load<Texture2D>("Images/arrow");
+            red = Content.Load<Texture2D>("Images/red");
+            green = Content.Load<Texture2D>("Images/green");
+            blue = Content.Load<Texture2D>("Images/blue");
 
-            base.LoadContent(content);
+            base.LoadContent();
         }
     }
 }
