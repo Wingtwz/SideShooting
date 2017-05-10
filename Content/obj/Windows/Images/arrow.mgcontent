@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Carlos/Documents/Visual Studio 2017/Projects/ProyectoDAM/SideShooting/Content/Images/arrow.png</SourceFile>
-  <SourceTime>2017-04-23T12:34:15.7666683+02:00</SourceTime>
-  <DestFile>C:/Users/Carlos/Documents/Visual Studio 2017/Projects/ProyectoDAM/SideShooting/Content/bin/Windows/Images/arrow.xnb</DestFile>
-  <DestTime>2017-05-09T21:29:18.2752464+02:00</DestTime>
+  <SourceFile>C:/Users/CCARRERA/Documents/Visual Studio 2017/Projects/ProyectoDAM/ProyectoDAM/Content/Images/arrow.png</SourceFile>
+  <SourceTime>2017-04-12T09:50:36.1681271+02:00</SourceTime>
+  <DestFile>C:/Users/CCARRERA/Documents/Visual Studio 2017/Projects/ProyectoDAM/ProyectoDAM/Content/bin/Windows/Images/arrow.xnb</DestFile>
+  <DestTime>2017-05-10T09:35:54.8510826+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
