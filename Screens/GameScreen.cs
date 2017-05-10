@@ -8,10 +8,12 @@ namespace ProyectoDAM.Screens
     {
         private Texture2D spriteProt;
         private Texture2D map;
+        private Protagonist prot;
 
         public GameScreen(ContentManager content, GraphicsDevice graphics) : base (content, graphics)
         {
             this.LoadContent();
+            prot = new Protagonist(spriteProt);
         }
 
         public override void Draw(GameTime gameTime)
@@ -19,6 +21,8 @@ namespace ProyectoDAM.Screens
             SpriteBatch.Begin();
 
             SpriteBatch.Draw(map, new Vector2(0), Color.White);
+
+            prot.Draw(SpriteBatch, new Vector2(20));
 
             SpriteBatch.End();
         }

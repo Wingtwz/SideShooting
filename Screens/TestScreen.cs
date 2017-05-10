@@ -70,8 +70,6 @@ namespace ProyectoDAM.Screens
             SpriteBatch.End();
 
             //animatedSprite.Draw(spriteBatch, new Vector2(400, 200));
-
-            base.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -83,8 +81,6 @@ namespace ProyectoDAM.Screens
             blueAngle += blueSpeed;
             redAngle += redSpeed;
             greenAngle += greenSpeed;
-
-            base.Update(gameTime);
         }
 
         public override void LoadContent()
@@ -98,8 +94,6 @@ namespace ProyectoDAM.Screens
             red = Content.Load<Texture2D>("ImagesTest/red");
             green = Content.Load<Texture2D>("ImagesTest/green");
             blue = Content.Load<Texture2D>("ImagesTest/blue");
-
-            base.LoadContent();
         }
     }
 }
