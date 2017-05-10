@@ -43,6 +43,9 @@ namespace ProyectoDAM
         {
             // TODO: Add your initialization logic here
             currentScreen = new MenuScreen(Content, GraphicsDevice);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
