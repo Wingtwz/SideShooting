@@ -90,14 +90,14 @@ namespace ProyectoDAM.Screens
         public override void LoadContent()
         {
             // TODO: use this.Content to load your game content here
-            Texture2D character = Content.Load<Texture2D>("Images/SmileyWalk");
+            Texture2D character = Content.Load<Texture2D>("ImagesTest/SmileyWalk");
             animatedSprite = new AnimatedSprite(character, 4, 4);
-            overworld = Content.Load<Texture2D>("Images/Overworld");
+            overworld = Content.Load<Texture2D>("ImagesTest/Overworld");
             fpsFont = Content.Load<SpriteFont>("Fonts/Fpsfont");
-            arrow = Content.Load<Texture2D>("Images/arrow");
-            red = Content.Load<Texture2D>("Images/red");
-            green = Content.Load<Texture2D>("Images/green");
-            blue = Content.Load<Texture2D>("Images/blue");
+            arrow = Content.Load<Texture2D>("ImagesTest/arrow");
+            red = Content.Load<Texture2D>("ImagesTest/red");
+            green = Content.Load<Texture2D>("ImagesTest/green");
+            blue = Content.Load<Texture2D>("ImagesTest/blue");
 
             base.LoadContent();
         }

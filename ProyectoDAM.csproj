@@ -46,6 +46,8 @@
     <Compile Include="AppCfg.cs" />
     <Compile Include="ConnectionManager.cs" />
     <Compile Include="GameMain.cs" />
+    <Compile Include="Protagonist.cs" />
+    <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

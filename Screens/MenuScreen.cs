@@ -39,7 +39,7 @@ namespace ProyectoDAM
 
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                GameMain.currentScreen = new TestScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
+                GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
             }
 
             base.Update(gameTime);
