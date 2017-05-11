@@ -30,7 +30,6 @@ namespace ProyectoDAM.Screens
 
         public override void Update(GameTime gameTime)
         {
-
             KeyboardState state = Keyboard.GetState();
 
             int moveStep = 1;
@@ -44,6 +43,7 @@ namespace ProyectoDAM.Screens
                 prot.Location = new Vector2(prot.Location.X, prot.Location.Y + moveStep);
                 prot.Update(gameTime);
             }
+
             if (state.IsKeyDown(Keys.Right))
             {
                 if (prot.CurrentAnimation != 1)
@@ -53,6 +53,7 @@ namespace ProyectoDAM.Screens
                 prot.Location = new Vector2(prot.Location.X + moveStep, prot.Location.Y);
                 prot.Update(gameTime);
             }
+
             if (state.IsKeyDown(Keys.Up))
             {
                 if (prot.CurrentAnimation != 2)
@@ -62,6 +63,7 @@ namespace ProyectoDAM.Screens
                 prot.Location = new Vector2(prot.Location.X, prot.Location.Y - moveStep);
                 prot.Update(gameTime);
             }
+
             if (state.IsKeyDown(Keys.Left))
             {
                 if (prot.CurrentAnimation != 3)

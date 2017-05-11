@@ -39,6 +39,8 @@ namespace ProyectoDAM
 
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
+                ConnectionManager cManager = new ConnectionManager();
+                cManager.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
                 GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
             }
 

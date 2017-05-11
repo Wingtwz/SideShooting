@@ -14,6 +14,7 @@ namespace ProyectoDAM
     {
         public static Screen currentScreen;
         public static ContentManager contentManager;
+        public static AppCfg Settings;
 
         SpriteBatch spriteBatch;
         GraphicsDeviceManager graphics;
@@ -32,6 +33,7 @@ namespace ProyectoDAM
             graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
+            Settings = ReadSettings();
         }
 
         /// <summary>

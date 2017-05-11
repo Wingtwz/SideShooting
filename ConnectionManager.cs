@@ -6,16 +6,18 @@ namespace ProyectoDAM
 {
     class ConnectionManager
     {
+        public Socket Socket { get; set; }
+
         public void Connect(string IP, int port)
         {
             try
             {
                 IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), port);
-                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                s.Connect(ep);
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socket.Connect(ep);
                 //s.SendTimeout(5);
 
-                NetworkStream ns = new NetworkStream(s);
+                NetworkStream ns = new NetworkStream(Socket);
                 StreamReader sr = new StreamReader(ns);
                 StreamWriter sw = new StreamWriter(ns);
 
