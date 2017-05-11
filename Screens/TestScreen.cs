@@ -69,7 +69,7 @@ namespace ProyectoDAM.Screens
 
             SpriteBatch.End();
 
-            //animatedSprite.Draw(spriteBatch, new Vector2(400, 200));
+            animatedSprite.Draw(SpriteBatch, new Vector2(400, 200));
         }
 
         public override void Update(GameTime gameTime)

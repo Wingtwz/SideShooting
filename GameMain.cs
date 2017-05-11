@@ -30,6 +30,7 @@ namespace ProyectoDAM
         public GameMain()
         {
             graphics = new GraphicsDeviceManager(this);
+            this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
 
