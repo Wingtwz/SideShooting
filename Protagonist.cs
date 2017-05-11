@@ -20,11 +20,13 @@ namespace ProyectoDAM
             this.Sprite = sprite;
             CurrentFrame = 1;
             maxFrames = 3;
+
             SourceAnimations = new Rectangle[4];
             for (int i = 0, left = 1, top = 6, width = 64, height = 22; i < SourceAnimations.Length; i++, top += 32)
             {
                 SourceAnimations[i] = new Rectangle(left, top, width, height);
             }
+
             SourceAnimations[0] = new Rectangle(1, 6, 64, 22);//separacion de 1px entre imagenes, 15*4 + 4 de ese px
             CurrentAnimation = 0;
             Location = new Vector2(20);

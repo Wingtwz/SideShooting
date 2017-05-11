@@ -44,7 +44,7 @@ namespace ProyectoDAM.Screens
                 prot.Location = new Vector2(prot.Location.X, prot.Location.Y + moveStep);
                 prot.Update(gameTime);
             }
-            else if (state.IsKeyDown(Keys.Right))
+            if (state.IsKeyDown(Keys.Right))
             {
                 if (prot.CurrentAnimation != 1)
                 {
@@ -53,7 +53,7 @@ namespace ProyectoDAM.Screens
                 prot.Location = new Vector2(prot.Location.X + moveStep, prot.Location.Y);
                 prot.Update(gameTime);
             }
-            else if (state.IsKeyDown(Keys.Up))
+            if (state.IsKeyDown(Keys.Up))
             {
                 if (prot.CurrentAnimation != 2)
                 {
@@ -62,7 +62,7 @@ namespace ProyectoDAM.Screens
                 prot.Location = new Vector2(prot.Location.X, prot.Location.Y - moveStep);
                 prot.Update(gameTime);
             }
-            else if (state.IsKeyDown(Keys.Left))
+            if (state.IsKeyDown(Keys.Left))
             {
                 if (prot.CurrentAnimation != 3)
                 {
@@ -71,7 +71,8 @@ namespace ProyectoDAM.Screens
                 prot.Location = new Vector2(prot.Location.X - moveStep, prot.Location.Y);
                 prot.Update(gameTime);
             }
-            else if (state.GetPressedKeys().Length <= 0)
+
+            if (state.GetPressedKeys().Length <= 0)
             {
                 prot.CurrentFrame = 1;
             }
