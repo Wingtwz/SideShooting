@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Net.Sockets;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,6 +10,7 @@ namespace ProyectoDAM
     public class MenuScreen : Screen
     {
         private SpriteFont testFont;
+        private string textStatus = "Esto es un menu, pulsa para continuar";
 
         public MenuScreen(ContentManager content, GraphicsDevice graphicsDevice) : base(content, graphicsDevice)
         {
@@ -26,7 +28,7 @@ namespace ProyectoDAM
 
             SpriteBatch.Begin();
 
-            SpriteBatch.DrawString(testFont, "Esto es un menu, pulsa para continuar", new Vector2(250), Color.Black);
+            SpriteBatch.DrawString(testFont, textStatus, new Vector2(250), Color.Black);
 
             SpriteBatch.End();
 
@@ -37,11 +39,18 @@ namespace ProyectoDAM
         {
             MouseState mouseState = Mouse.GetState();
 
-            if (mouseState.LeftButton == ButtonState.Pressed)
+            if (mouseState.LeftButton == ButtonState.Pressed && Game.Is)
             {
-                ConnectionManager cManager = new ConnectionManager();
-                cManager.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
-                GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
+                try
+                {
+                    ConnectionManager cManager = new ConnectionManager();
+                    cManager.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
+                    GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
+                }
+                catch (SocketException ex) when (ex.ErrorCode == 0)
+                {
+                    textStatus = "Error: servidor no valido";
+                }
             }
 
             base.Update(gameTime);

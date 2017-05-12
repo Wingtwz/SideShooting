@@ -10,28 +10,22 @@ namespace ProyectoDAM
 
         public void Connect(string IP, int port)
         {
-            try
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), port);
+            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket.Connect(ep);
+            Socket.SendTimeout = 5;
+
+            NetworkStream ns = new NetworkStream(Socket);
+            StreamReader sr = new StreamReader(ns);
+            StreamWriter sw = new StreamWriter(ns);
+
+            if (sr.ReadLine() != "ConectadoASideShooting")
             {
-                IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), port);
-                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                Socket.Connect(ep);
-                //s.SendTimeout(5);
-
-                NetworkStream ns = new NetworkStream(Socket);
-                StreamReader sr = new StreamReader(ns);
-                StreamWriter sw = new StreamWriter(ns);
-
-                if (sr.ReadLine() != "ConectadoASideShooting")
-                {
-                    throw new SocketException();
-                }
-                else
-                {
-                    //gestionar una vez conectado
-                }
+                throw new SocketException();
             }
-            catch (SocketException e)
+            else
             {
+                //gestionar una vez conectado
             }
         }
     }
