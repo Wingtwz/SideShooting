@@ -32,6 +32,7 @@ namespace ProyectoDAM
         {
             graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
+            this.Window.Title = "SideShooting";
             Content.RootDirectory = "Content";
             Settings = ReadSettings();
         }

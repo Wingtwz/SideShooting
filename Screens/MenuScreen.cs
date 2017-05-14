@@ -10,7 +10,8 @@ namespace ProyectoDAM
     public class MenuScreen : Screen
     {
         private SpriteFont testFont;
-        private string textStatus = "Esto es un menu, pulsa para continuar";
+        private string textStatus = "Esto es un menu, pulsa aqui para continuar";
+        private Rectangle rectPlay = new Rectangle(230, 230, 100, 100);
 
         public MenuScreen(ContentManager content, GraphicsDevice graphicsDevice) : base(content, graphicsDevice)
         {
@@ -39,7 +40,7 @@ namespace ProyectoDAM
         {
             MouseState mouseState = Mouse.GetState();
 
-            if (mouseState.LeftButton == ButtonState.Pressed)
+            if (mouseState.LeftButton == ButtonState.Pressed && rectPlay.Contains(mouseState.Position))
             {
                 try
                 {

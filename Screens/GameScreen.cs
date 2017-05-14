@@ -34,7 +34,7 @@ namespace ProyectoDAM.Screens
 
             int moveStep = 1;
 
-            if (state.IsKeyDown(Keys.Down))
+            if (state.IsKeyDown(Keys.S))
             {
                 if (prot.CurrentAnimation != 0)
                 {
@@ -44,7 +44,7 @@ namespace ProyectoDAM.Screens
                 prot.Update(gameTime);
             }
 
-            if (state.IsKeyDown(Keys.Right))
+            if (state.IsKeyDown(Keys.D))
             {
                 if (prot.CurrentAnimation != 1)
                 {
@@ -54,7 +54,7 @@ namespace ProyectoDAM.Screens
                 prot.Update(gameTime);
             }
 
-            if (state.IsKeyDown(Keys.Up))
+            if (state.IsKeyDown(Keys.W))
             {
                 if (prot.CurrentAnimation != 2)
                 {
@@ -64,7 +64,7 @@ namespace ProyectoDAM.Screens
                 prot.Update(gameTime);
             }
 
-            if (state.IsKeyDown(Keys.Left))
+            if (state.IsKeyDown(Keys.A))
             {
                 if (prot.CurrentAnimation != 3)
                 {
