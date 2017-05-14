@@ -12,6 +12,8 @@ namespace ProyectoDAM
         public Vector2 Location { get; set; }
         public int CurrentFrame { get; set; }
 
+        private int spriteHeight = (int) (22 * 1.3);
+        private int spriteWidth = (int)(15 * 1.3);
         private int maxFrames;
         private float timeSinceLastFrameStep = 0;
 
@@ -40,7 +42,8 @@ namespace ProyectoDAM
                 SourceAnimations[CurrentAnimation].Top, width, SourceAnimations[CurrentAnimation].Height);
             Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, width, SourceAnimations[CurrentAnimation].Height);
 
-            spriteBatch.Draw(Sprite, Location, sourceRectangle, Color.White);
+            //spriteBatch.Draw(Sprite, Location, sourceRectangle, Color.White);
+            spriteBatch.Draw(Sprite, new Rectangle((int)Location.X, (int)Location.Y, spriteWidth, spriteHeight), sourceRectangle, Color.White);
             //spriteBatch.Draw(Sprite, destinationRectangle, sourceRectangle, Color.White);
         }
 

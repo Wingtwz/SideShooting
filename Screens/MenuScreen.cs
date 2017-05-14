@@ -39,7 +39,7 @@ namespace ProyectoDAM
         {
             MouseState mouseState = Mouse.GetState();
 
-            if (mouseState.LeftButton == ButtonState.Pressed && Game.Is)
+            if (mouseState.LeftButton == ButtonState.Pressed)
             {
                 try
                 {
