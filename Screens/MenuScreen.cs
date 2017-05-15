@@ -48,9 +48,9 @@ namespace ProyectoDAM
                     cManager.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
                     GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
                 }
-                catch (SocketException ex) when (ex.ErrorCode == 0)
+                catch (SocketException)
                 {
-                    textStatus = "Error: servidor no valido";
+                    textStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
                 }
             }
 
