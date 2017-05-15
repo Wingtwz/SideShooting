@@ -12,7 +12,7 @@ namespace ProyectoDAM
         public int CurrentFrame { get; set; }
 
         private int spriteHeight = (int) (22 * 1.3);
-        private int spriteWidth = (int)(15 * 1.3);
+        private int spriteWidth = (int) (15 * 1.3);
         private int maxFrames;
         private float timeSinceLastFrameStep = 0;
 

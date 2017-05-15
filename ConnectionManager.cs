@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using Microsoft.Xna.Framework;
 
 namespace ProyectoDAM
@@ -8,6 +9,8 @@ namespace ProyectoDAM
     public class ConnectionManager
     {
         public Socket Socket { get; set; }
+        public Character Character { get; set; }
+        public bool ConnectionAlive { get; set; } = true;
 
         private NetworkStream ns;
         private StreamReader sr;
@@ -32,13 +35,33 @@ namespace ProyectoDAM
             {
                 sw.WriteLine("OKSS");
                 sw.Flush();
+
+                Thread thread = new Thread(Receiver);
+                thread.Start();
             }
         }
 
         public void SendPosition(Vector2 location)
         {
-            sw.WriteLine($"POSITION {location.X} {location.Y}");
+            sw.WriteLine($"LOCATION {location.X} {location.Y}");
             sw.Flush();
+        }
+
+        public void Receiver()
+        {
+            string message;
+            string[] data;
+
+            while (ConnectionAlive)
+            {
+                message = sr.ReadLine();
+                data = message.Split(' ');
+
+                if (data[0] == "LOCATION")
+                {
+                    this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
+                }
+            }
         }
     }
 }

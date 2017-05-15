@@ -18,6 +18,7 @@ namespace ProyectoDAM.Screens
             this.LoadContent();
             this.player = new Character(spriteCharacter);
             this.cManager = cManager;
+            this.cManager.Character = new Character(spriteCharacter);
         }
 
         public override void Draw(GameTime gameTime)
@@ -27,6 +28,7 @@ namespace ProyectoDAM.Screens
             SpriteBatch.Draw(map, new Vector2(0), Color.White);
 
             player.Draw(SpriteBatch);
+            cManager.Character.Draw(SpriteBatch);
 
             SpriteBatch.End();
         }
