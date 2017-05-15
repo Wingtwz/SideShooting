@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ProyectoDAM
 {
-    public class Protagonist
+    public class Character
     {
         public Texture2D Sprite { get; set; }
         public int CurrentAnimation { get; set; }
@@ -17,7 +16,7 @@ namespace ProyectoDAM
         private int maxFrames;
         private float timeSinceLastFrameStep = 0;
 
-        public Protagonist(Texture2D sprite)
+        public Character(Texture2D sprite)
         {
             this.Sprite = sprite;
             CurrentFrame = 1;

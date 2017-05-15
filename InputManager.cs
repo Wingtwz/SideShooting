@@ -6,7 +6,7 @@ namespace SideShooting
 {
     public static class InputManager
     {
-        public static void Game(GameTime gameTime, Protagonist prot)
+        public static void Game(GameTime gameTime, Character prot)
         {
             KeyboardState state = Keyboard.GetState();
 
