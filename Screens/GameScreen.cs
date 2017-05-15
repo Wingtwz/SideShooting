@@ -11,6 +11,7 @@ namespace ProyectoDAM.Screens
         private Texture2D map;
         private Protagonist prot;
         private ConnectionManager cManager;
+        private float timeSinceLastTick = 0;
 
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager cManager) : base (content, graphics)
         {
@@ -33,7 +34,14 @@ namespace ProyectoDAM.Screens
         public override void Update(GameTime gameTime)
         {
             InputManager.Game(gameTime, prot);
-            cManager.SendPosition(prot.Location);
+
+            //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
+            timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeSinceLastTick > 0.05)
+            {
+                cManager.SendPosition(prot.Location);
+                timeSinceLastTick = 0;
+            }
         }
 
         public override void LoadContent()
