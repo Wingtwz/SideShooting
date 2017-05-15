@@ -9,6 +9,7 @@ namespace ProyectoDAM
 {
     public class MenuScreen : Screen
     {
+        private ConnectionManager cManager = new ConnectionManager();
         private SpriteFont testFont;
         private string textStatus = "Esto es un menu, pulsa aqui para continuar";
         private Rectangle rectPlay = new Rectangle(230, 230, 100, 100);
@@ -44,9 +45,9 @@ namespace ProyectoDAM
             {
                 try
                 {
-                    ConnectionManager cManager = new ConnectionManager();
                     cManager.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
-                    GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory), GraphicsDevice);
+                    GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory),
+                        GraphicsDevice, cManager);
                 }
                 catch (SocketException)
                 {

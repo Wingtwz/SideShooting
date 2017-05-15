@@ -1,12 +1,17 @@
 ﻿using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using Microsoft.Xna.Framework;
 
 namespace ProyectoDAM
 {
-    class ConnectionManager
+    public class ConnectionManager
     {
         public Socket Socket { get; set; }
+
+        private NetworkStream ns;
+        private StreamReader sr;
+        private StreamWriter sw;
 
         public void Connect(string IP, int port)
         {
@@ -15,9 +20,9 @@ namespace ProyectoDAM
             Socket.Connect(ep);
             Socket.SendTimeout = 5;
 
-            NetworkStream ns = new NetworkStream(Socket);
-            StreamReader sr = new StreamReader(ns);
-            StreamWriter sw = new StreamWriter(ns);
+            ns = new NetworkStream(Socket);
+            sr = new StreamReader(ns);
+            sw = new StreamWriter(ns);
 
             if (sr.ReadLine() != "ConectadoASideShooting")
             {
@@ -25,8 +30,15 @@ namespace ProyectoDAM
             }
             else
             {
-                //gestionar una vez conectado
+                sw.WriteLine("OKSS");
+                sw.Flush();
             }
+        }
+
+        public void SendPosition(Vector2 location)
+        {
+            sw.WriteLine($"POSITION {location.X} {location.Y}");
+            sw.Flush();
         }
     }
 }

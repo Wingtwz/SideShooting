@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SideShooting;
 
 namespace ProyectoDAM.Screens
@@ -11,11 +10,13 @@ namespace ProyectoDAM.Screens
         private Texture2D spriteProt;
         private Texture2D map;
         private Protagonist prot;
+        private ConnectionManager cManager;
 
-        public GameScreen(ContentManager content, GraphicsDevice graphics) : base (content, graphics)
+        public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager cManager) : base (content, graphics)
         {
             this.LoadContent();
-            prot = new Protagonist(spriteProt);
+            this.prot = new Protagonist(spriteProt);
+            this.cManager = cManager;
         }
 
         public override void Draw(GameTime gameTime)
@@ -32,6 +33,7 @@ namespace ProyectoDAM.Screens
         public override void Update(GameTime gameTime)
         {
             InputManager.Game(gameTime, prot);
+            cManager.SendPosition(prot.Location);
         }
 
         public override void LoadContent()
