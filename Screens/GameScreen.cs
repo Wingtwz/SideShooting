@@ -7,16 +7,18 @@ namespace ProyectoDAM.Screens
 {
     public class GameScreen : Screen
     {
+        public Character Player { get; set; }
+        public Texture2D ProjectileSprite { get; set; }
+
         private Texture2D spriteCharacter;
         private Texture2D map;
-        private Character player;
         private ConnectionManager cManager;
         private float timeSinceLastTick = 0;
 
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager cManager) : base (content, graphics)
         {
             this.LoadContent();
-            this.player = new Character(spriteCharacter);
+            this.Player = new Character(spriteCharacter);
             this.cManager = cManager;
             this.cManager.Character = new Character(spriteCharacter);
         }
@@ -27,7 +29,7 @@ namespace ProyectoDAM.Screens
 
             SpriteBatch.Draw(map, new Vector2(0), Color.White);
 
-            player.Draw(SpriteBatch);
+            Player.Draw(SpriteBatch);
             cManager.Character.Draw(SpriteBatch);
 
             SpriteBatch.End();
@@ -35,13 +37,13 @@ namespace ProyectoDAM.Screens
 
         public override void Update(GameTime gameTime)
         {
-            InputManager.Game(gameTime, player);
+            InputManager.Game(this, gameTime);
 
             //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
             timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastTick > 0.05)
             {
-                cManager.SendPosition(player.Location, player.CurrentAnimation, player.CurrentFrame);
+                cManager.SendPosition(Player.Location, Player.CurrentAnimation, Player.CurrentFrame);
                 timeSinceLastTick = 0;
             }
         }
