@@ -4,7 +4,6 @@ modificar el unload en los destructores de las escenas
 ajustar límites de movimiento en la pantalla
 
 - tareas
-arreglar la perspectiva al moverse (enviar el codigo de frames actuales?)
 ajustar como se crean el resto de personajes, ahora está super bugeado, el personaje ya sale creado a la espera de una conexión
 crear proyectiles y su algoritmo (usar animación de SideRun)
 enviar los proyectiles al servidor

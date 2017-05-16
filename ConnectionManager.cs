@@ -57,7 +57,7 @@ namespace ProyectoDAM
                 message = sr.ReadLine();
                 data = message.Split(' ');
 
-                if (data[0] == "LOCATION")
+                if (Character != null && data[0] == "LOCATION")
                 {
                     this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
                     this.Character.CurrentAnimation = int.Parse(data[3]);
