@@ -72,7 +72,7 @@ namespace ProyectoDAM.Screens
             animatedSprite.Draw(SpriteBatch, new Vector2(400, 200));
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool gameActive)
         {
             score++;
             angle += 0.01f;

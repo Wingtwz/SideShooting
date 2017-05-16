@@ -24,7 +24,7 @@ namespace ProyectoDAM
 
         public virtual void Draw(GameTime gameTime) { }
 
-        public virtual void Update(GameTime gameTime) { }
+        public virtual void Update(GameTime gameTime, bool gameActive) { }
 
         public virtual void LoadContent() { }
     }

@@ -35,9 +35,12 @@ namespace ProyectoDAM.Screens
             SpriteBatch.End();
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool gameActive)
         {
-            InputManager.Game(this, gameTime);
+            if (gameActive)
+            {
+                InputManager.Game(this, gameTime);
+            }
 
             //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
             timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;

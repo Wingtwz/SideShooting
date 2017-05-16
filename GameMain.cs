@@ -84,7 +84,7 @@ namespace ProyectoDAM
                 Exit();
 
             // TODO: Add your update logic here
-            currentScreen.Update(gameTime);
+            currentScreen.Update(gameTime, this.IsActive);
 
             base.Update(gameTime);
         }

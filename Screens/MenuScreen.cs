@@ -37,25 +37,26 @@ namespace ProyectoDAM
             base.Draw(gameTime);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool gameActive)
         {
-            MouseState mouseState = Mouse.GetState();
-
-            if (mouseState.LeftButton == ButtonState.Pressed && rectPlay.Contains(mouseState.Position))
+            if (gameActive)
             {
-                try
+                MouseState mouseState = Mouse.GetState();
+
+                if (mouseState.LeftButton == ButtonState.Pressed && rectPlay.Contains(mouseState.Position))
                 {
-                    cManager.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
-                    GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory),
-                        GraphicsDevice, cManager);
-                }
-                catch (SocketException)
-                {
-                    textStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
+                    try
+                    {
+                        cManager.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
+                        GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory),
+                            GraphicsDevice, cManager);
+                    }
+                    catch (SocketException)
+                    {
+                        textStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
+                    }
                 }
             }
-
-            base.Update(gameTime);
         }
     }
 }
