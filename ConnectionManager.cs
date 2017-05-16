@@ -41,9 +41,9 @@ namespace ProyectoDAM
             }
         }
 
-        public void SendPosition(Vector2 location)
+        public void SendPosition(Vector2 location, int currentAnimation, int currentFrame)
         {
-            sw.WriteLine($"LOCATION {location.X} {location.Y}");
+            sw.WriteLine($"LOCATION {location.X} {location.Y} {currentAnimation} {currentFrame}");
             sw.Flush();
         }
 
@@ -60,6 +60,8 @@ namespace ProyectoDAM
                 if (data[0] == "LOCATION")
                 {
                     this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
+                    this.Character.CurrentAnimation = int.Parse(data[3]);
+                    this.Character.CurrentFrame = int.Parse(data[4]);
                 }
             }
         }

@@ -41,7 +41,7 @@ namespace ProyectoDAM.Screens
             timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastTick > 0.05)
             {
-                cManager.SendPosition(player.Location);
+                cManager.SendPosition(player.Location, player.CurrentAnimation, player.CurrentFrame);
                 timeSinceLastTick = 0;
             }
         }

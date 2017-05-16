@@ -7,9 +7,9 @@ namespace ProyectoDAM
     {
         public Texture2D Sprite { get; set; }
         public int CurrentAnimation { get; set; }
+        public int CurrentFrame { get; set; }
         public Rectangle[] SourceAnimations { get; set; }
         public Vector2 Location { get; set; }
-        public int CurrentFrame { get; set; }
 
         private int spriteHeight = (int) (22 * 1.3);
         private int spriteWidth = (int) (15 * 1.3);
