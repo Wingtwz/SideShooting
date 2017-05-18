@@ -5,7 +5,8 @@ ajustar límites de movimiento en la pantalla
 
 - tareas
 ajustar como se crean el resto de personajes, ahora está super bugeado, el personaje ya sale creado a la espera de una conexión
-crear proyectiles y su algoritmo (usar animación de SideRun)
+controlar cuando se pueden generar proyectiles
+añadir alguna propiedad para que un proyectil no pueda dañar al que lo dispara
 enviar los proyectiles al servidor
 crear método que envie los proyectiles al resto de clientes
 detectar colisiones personaje-proyectil (en servidor?)
