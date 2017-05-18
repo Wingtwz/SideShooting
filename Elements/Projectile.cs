@@ -8,6 +8,7 @@ namespace SideShooting.Elements
     {
         public Vector2 Location { get; set; }
         public Vector2 Acceleration { get; set; }
+        public int Speed { get; set; }
         public Texture2D Sprite { get; set; }
         public int CurrentFrame { get; set; }
 
@@ -18,13 +19,19 @@ namespace SideShooting.Elements
         {
             this.Sprite = sprite;
             this.CurrentFrame = 0;
+            this.Speed = 2;
 
-            double angle = Math.Atan2(playerLocation.Y - mouseLocation.Y, playerLocation.X - mouseLocation.X);
-            System.Diagnostics.Debug.WriteLine(angle);
+            double atan2 = Math.Atan2(playerLocation.Y - mouseLocation.Y, playerLocation.X - mouseLocation.X);
+            //double angle = (atan > 0 ? atan : (2 * Math.PI + atan)) * 360 / (2 * Math.PI);
+            double radians = atan2 > 0 ? atan2 : 2 * Math.PI + atan2;
+
+            this.Acceleration = new Vector2((float) Math.Cos(radians) * Speed, (float) Math.Sin(radians) * Speed);
         }
 
         public void Update(GameTime gameTime)
         {
+            this.Location += this.Acceleration;
+
             timeSinceLastFrameStep += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (timeSinceLastFrameStep > 0.15)
