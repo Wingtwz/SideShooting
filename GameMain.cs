@@ -15,6 +15,7 @@ namespace ProyectoDAM
         public static Screen currentScreen;
         public static ContentManager contentManager;
         public static AppCfg Settings;
+        public static Rectangle ScreenRect { get; set; }
 
         SpriteBatch spriteBatch;
         GraphicsDeviceManager graphics;
@@ -50,6 +51,9 @@ namespace ProyectoDAM
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
+
+            Viewport v = graphics.GraphicsDevice.Viewport;
+            ScreenRect = new Rectangle(0, 0, v.Width, v.Height);
 
             base.Initialize();
         }

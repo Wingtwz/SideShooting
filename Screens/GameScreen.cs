@@ -13,7 +13,7 @@ namespace ProyectoDAM.Screens
         public Texture2D ProjectileSprite { get; set; }
         public List<Projectile> Projectiles { get; set; }
 
-        private Texture2D spriteCharacter;
+        private Texture2D characterSprite;
         private Texture2D map;
         private ConnectionManager cManager;
         private float timeSinceLastTick = 0;
@@ -21,9 +21,9 @@ namespace ProyectoDAM.Screens
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager cManager) : base (content, graphics)
         {
             this.LoadContent();
-            this.Player = new Character(spriteCharacter);
+            this.Player = new Character(characterSprite);
             this.cManager = cManager;
-            this.cManager.Character = new Character(spriteCharacter);
+            this.cManager.Character = new Character(characterSprite);
             this.Projectiles = new List<Projectile>();
         }
 
@@ -50,9 +50,14 @@ namespace ProyectoDAM.Screens
                 InputManager.Game(this, gameTime);
             }
 
-            foreach (var p in Projectiles)
+            for (int i = Projectiles.Count-1; i >= 0; i--)
             {
-                p.Update(gameTime);
+                Projectiles[i].Update(gameTime);
+
+                if (!GameMain.ScreenRect.Contains(Projectiles[i].Location.ToPoint()))
+                {
+                    Projectiles.Remove(Projectiles[i]);
+                }
             }
 
             //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
@@ -66,7 +71,7 @@ namespace ProyectoDAM.Screens
 
         public override void LoadContent()
         {
-            spriteCharacter = Content.Load<Texture2D>("Images/character");
+            characterSprite = Content.Load<Texture2D>("Images/character");
             ProjectileSprite = Content.Load<Texture2D>("Images/proyectil");
             map = Content.Load<Texture2D>("Images/mapahierba");
         }
