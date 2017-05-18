@@ -25,12 +25,14 @@ namespace SideShooting.Elements
             //double angle = (atan > 0 ? atan : (2 * Math.PI + atan)) * 360 / (2 * Math.PI);
             double radians = atan2 > 0 ? atan2 : 2 * Math.PI + atan2;
 
-            this.Acceleration = new Vector2((float) Math.Cos(radians) * Speed, (float) Math.Sin(radians) * Speed);
+            this.Acceleration = new Vector2((float) -Math.Cos(radians) * Speed, (float) -Math.Sin(radians) * Speed);
+            this.Location = playerLocation + this.Acceleration * 5;
         }
 
         public void Update(GameTime gameTime)
         {
             this.Location += this.Acceleration;
+            //System.Diagnostics.Debug.WriteLine("Location " + this.Location);
 
             timeSinceLastFrameStep += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

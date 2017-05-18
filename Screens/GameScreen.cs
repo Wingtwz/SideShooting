@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SideShooting;
+using SideShooting.Elements;
 
 namespace ProyectoDAM.Screens
 {
@@ -9,6 +11,7 @@ namespace ProyectoDAM.Screens
     {
         public Character Player { get; set; }
         public Texture2D ProjectileSprite { get; set; }
+        public List<Projectile> Projectiles { get; set; }
 
         private Texture2D spriteCharacter;
         private Texture2D map;
@@ -21,6 +24,7 @@ namespace ProyectoDAM.Screens
             this.Player = new Character(spriteCharacter);
             this.cManager = cManager;
             this.cManager.Character = new Character(spriteCharacter);
+            this.Projectiles = new List<Projectile>();
         }
 
         public override void Draw(GameTime gameTime)
@@ -31,6 +35,10 @@ namespace ProyectoDAM.Screens
 
             Player.Draw(SpriteBatch);
             cManager.Character.Draw(SpriteBatch);
+            foreach (var p in Projectiles)
+            {
+                p.Draw(SpriteBatch);
+            }
 
             SpriteBatch.End();
         }
@@ -40,6 +48,11 @@ namespace ProyectoDAM.Screens
             if (gameActive)
             {
                 InputManager.Game(this, gameTime);
+            }
+
+            foreach (var p in Projectiles)
+            {
+                p.Update(gameTime);
             }
 
             //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
@@ -54,6 +67,7 @@ namespace ProyectoDAM.Screens
         public override void LoadContent()
         {
             spriteCharacter = Content.Load<Texture2D>("Images/character");
+            ProjectileSprite = Content.Load<Texture2D>("Images/proyectil");
             map = Content.Load<Texture2D>("Images/mapahierba");
         }
     }
