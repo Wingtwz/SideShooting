@@ -74,7 +74,7 @@ namespace ProyectoDAM
                             var p = new Projectile(GameScreen.ProjectileSprite,
                                 new Vector2(float.Parse(data[1]), float.Parse(data[2])),
                                 new Vector2(float.Parse(data[3]), float.Parse(data[4])));
-                            this.GameScreen.Projectiles.Add(p);
+                            this.GameScreen.EnemyProjectiles.Add(p);
                             break;
                     }
                 }

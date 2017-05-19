@@ -12,6 +12,7 @@ namespace ProyectoDAM.Screens
         public Character Player { get; set; }
         public Texture2D ProjectileSprite { get; set; }
         public List<Projectile> Projectiles { get; set; }
+        public List<Projectile> EnemyProjectiles { get; set; }
         public ConnectionManager Connection { get; set; }
 
         private Texture2D characterSprite;
@@ -26,6 +27,7 @@ namespace ProyectoDAM.Screens
             this.Connection.Character = new Character(characterSprite);
             this.Connection.GameScreen = this;
             this.Projectiles = new List<Projectile>();
+            this.EnemyProjectiles = new List<Projectile>();
         }
 
         public override void Draw(GameTime gameTime)
@@ -36,12 +38,15 @@ namespace ProyectoDAM.Screens
 
             Player.Draw(SpriteBatch);
             Connection.Character.Draw(SpriteBatch);
-            foreach (var p in Projectiles)
-            {
-                p.Draw(SpriteBatch);
-            }
+            this.DrawProjectiles(Projectiles);
+            this.DrawProjectiles(EnemyProjectiles);
 
             SpriteBatch.End();
+
+            if (Player.DamageEffect % 2 != 0)
+            {
+                GraphicsDevice.Clear(Color.DarkRed);
+            }
         }
 
         public override void Update(GameTime gameTime, bool gameActive)
@@ -51,14 +56,12 @@ namespace ProyectoDAM.Screens
                 InputManager.Game(this, gameTime);
             }
 
-            for (int i = Projectiles.Count-1; i >= 0; i--)
-            {
-                Projectiles[i].Update(gameTime);
+            this.UpdateProjectiles(Projectiles, gameTime);
+            this.UpdateProjectiles(EnemyProjectiles, gameTime);
 
-                if (!GameMain.ScreenRect.Contains(Projectiles[i].Location.ToPoint()))
-                {
-                    Projectiles.Remove(Projectiles[i]);
-                }
+            if (Player.DamageEffect > 0)
+            {
+                Player.DamageEffect--;
             }
 
             //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
@@ -75,6 +78,27 @@ namespace ProyectoDAM.Screens
             characterSprite = Content.Load<Texture2D>("Images/character");
             ProjectileSprite = Content.Load<Texture2D>("Images/proyectil");
             map = Content.Load<Texture2D>("Images/mapahierba");
+        }
+
+        public void DrawProjectiles(List<Projectile> projectiles)
+        {
+            foreach (var p in projectiles)
+            {
+                p.Draw(SpriteBatch);
+            }
+        }
+
+        public void UpdateProjectiles(List<Projectile> projectiles, GameTime gameTime)
+        {
+            for (int i = projectiles.Count - 1; i >= 0; i--)
+            {
+                projectiles[i].Update(gameTime);
+
+                if (!GameMain.ScreenRect.Contains(projectiles[i].Location.ToPoint()))
+                {
+                    Projectiles.Remove(projectiles[i]);
+                }
+            }
         }
     }
 }
