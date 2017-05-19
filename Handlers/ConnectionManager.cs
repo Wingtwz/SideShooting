@@ -3,6 +3,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using Microsoft.Xna.Framework;
+using ProyectoDAM.Screens;
+using SideShooting.Elements;
 
 namespace ProyectoDAM
 {
@@ -11,6 +13,7 @@ namespace ProyectoDAM
         public Socket Socket { get; set; }
         public Character Character { get; set; }
         public bool ConnectionAlive { get; set; } = true;
+        public GameScreen GameScreen { get; set; }
 
         private NetworkStream ns;
         private StreamReader sr;
@@ -57,13 +60,31 @@ namespace ProyectoDAM
                 message = sr.ReadLine();
                 data = message.Split(' ');
 
-                if (Character != null && data[0] == "LOCATION")
+                if (Character != null)
                 {
-                    this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
-                    this.Character.CurrentAnimation = int.Parse(data[3]);
-                    this.Character.CurrentFrame = int.Parse(data[4]);
+                    switch (data[0])
+                    {
+                        case "LOCATION":
+                            this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
+                            this.Character.CurrentAnimation = int.Parse(data[3]);
+                            this.Character.CurrentFrame = int.Parse(data[4]);
+                            break;
+
+                        case "PROJECTILE":
+                            var p = new Projectile(GameScreen.ProjectileSprite,
+                                new Vector2(float.Parse(data[1]), float.Parse(data[2])),
+                                new Vector2(float.Parse(data[3]), float.Parse(data[4])));
+                            this.GameScreen.Projectiles.Add(p);
+                            break;
+                    }
                 }
             }
+        }
+
+        public void SendProjectile(Projectile p)
+        {
+            sw.WriteLine($"PROJECTILE {p.Location.X} {p.Location.Y} {p.Acceleration.X} {p.Acceleration.Y}");
+            sw.Flush();
         }
     }
 }

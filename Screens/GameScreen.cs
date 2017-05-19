@@ -12,18 +12,19 @@ namespace ProyectoDAM.Screens
         public Character Player { get; set; }
         public Texture2D ProjectileSprite { get; set; }
         public List<Projectile> Projectiles { get; set; }
+        public ConnectionManager Connection { get; set; }
 
         private Texture2D characterSprite;
         private Texture2D map;
-        private ConnectionManager cManager;
         private float timeSinceLastTick = 0;
 
-        public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager cManager) : base (content, graphics)
+        public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager connection) : base (content, graphics)
         {
             this.LoadContent();
             this.Player = new Character(characterSprite);
-            this.cManager = cManager;
-            this.cManager.Character = new Character(characterSprite);
+            this.Connection = connection;
+            this.Connection.Character = new Character(characterSprite);
+            this.Connection.GameScreen = this;
             this.Projectiles = new List<Projectile>();
         }
 
@@ -34,7 +35,7 @@ namespace ProyectoDAM.Screens
             SpriteBatch.Draw(map, new Vector2(0), Color.White);
 
             Player.Draw(SpriteBatch);
-            cManager.Character.Draw(SpriteBatch);
+            Connection.Character.Draw(SpriteBatch);
             foreach (var p in Projectiles)
             {
                 p.Draw(SpriteBatch);
@@ -64,7 +65,7 @@ namespace ProyectoDAM.Screens
             timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastTick > 0.05)
             {
-                cManager.SendPosition(Player.Location, Player.CurrentAnimation, Player.CurrentFrame);
+                Connection.SendPosition(Player.Location, Player.CurrentAnimation, Player.CurrentFrame);
                 timeSinceLastTick = 0;
             }
         }

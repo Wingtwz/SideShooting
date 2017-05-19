@@ -66,7 +66,9 @@ namespace SideShooting
 
             if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
             {
-                gameScreen.Projectiles.Add(new Projectile(gameScreen.ProjectileSprite, gameScreen.Player.Location, mState.Position));
+                var projectile = new Projectile(gameScreen.ProjectileSprite, gameScreen.Player.Location, mState.Position);
+                gameScreen.Projectiles.Add(projectile);
+                gameScreen.Connection.SendProjectile(projectile);
                 System.Diagnostics.Debug.WriteLine(gameScreen.Projectiles.Count);
             }
 
