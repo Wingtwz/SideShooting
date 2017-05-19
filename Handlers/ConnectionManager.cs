@@ -71,6 +71,16 @@ namespace ProyectoDAM
                                 new Vector2(float.Parse(data[3]), float.Parse(data[4])), Convert.ToInt32(data[5]));
                             this.GameScreen.EnemyProjectiles.Add(p);
                             break;
+
+                        case "REMOVE":
+                            for (int i = GameScreen.Projectiles.Count - 1; i >= 0; i--)
+                            {
+                                if (GameScreen.Projectiles[i].Id == Convert.ToInt32(data[1]))
+                                {
+                                    GameScreen.Projectiles.Remove(GameScreen.Projectiles[i]);
+                                }
+                            }
+                            break;
                     }
                 }
             }
@@ -85,6 +95,12 @@ namespace ProyectoDAM
         public void SendProjectile(Projectile p)
         {
             sw.WriteLine($"PROJECTILE {p.Location.X} {p.Location.Y} {p.Acceleration.X} {p.Acceleration.Y} {p.Id}");
+            sw.Flush();
+        }
+
+        public void SendRemove(Projectile p)
+        {
+            sw.WriteLine($"REMOVE {p.Id}");
             sw.Flush();
         }
     }

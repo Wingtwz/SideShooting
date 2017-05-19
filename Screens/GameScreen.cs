@@ -110,8 +110,10 @@ namespace ProyectoDAM.Screens
                 var playerBounds = new Rectangle((int)Player.Location.X, (int)Player.Location.Y, Player.spriteWidth, Player.spriteHeight);
                 var projectileBounds = new Rectangle((int)projectiles[i].Location.X, (int)projectiles[i].Location.Y,
                     projectiles[i].side, projectiles[i].side);
+
                 if (projectileBounds.Intersects(playerBounds))
                 {
+                    Connection.SendRemove(projectiles[i]);
                     projectiles.Remove(projectiles[i]);
                     //quitar vida al personaje
                     Player.DamageEffect = 5;
