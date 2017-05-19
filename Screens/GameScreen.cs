@@ -59,6 +59,8 @@ namespace ProyectoDAM.Screens
             this.UpdateProjectiles(Projectiles, gameTime);
             this.UpdateProjectiles(EnemyProjectiles, gameTime);
 
+            this.CheckCollisions(EnemyProjectiles);
+
             if (Player.DamageEffect > 0)
             {
                 Player.DamageEffect--;
@@ -97,6 +99,22 @@ namespace ProyectoDAM.Screens
                 if (!GameMain.ScreenRect.Contains(projectiles[i].Location.ToPoint()))
                 {
                     Projectiles.Remove(projectiles[i]);
+                }
+            }
+        }
+
+        public void CheckCollisions(List<Projectile> projectiles)
+        {
+            for (int i = projectiles.Count-1; i >= 0; i--)
+            {
+                var playerBounds = new Rectangle((int)Player.Location.X, (int)Player.Location.Y, Player.spriteWidth, Player.spriteHeight);
+                var projectileBounds = new Rectangle((int)projectiles[i].Location.X, (int)projectiles[i].Location.Y,
+                    projectiles[i].side, projectiles[i].side);
+                if (projectileBounds.Intersects(playerBounds))
+                {
+                    projectiles.Remove(projectiles[i]);
+                    //quitar vida al personaje
+                    Player.DamageEffect = 5;
                 }
             }
         }

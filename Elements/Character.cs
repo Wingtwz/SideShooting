@@ -12,8 +12,9 @@ namespace ProyectoDAM
         public Vector2 Location { get; set; }
         public int DamageEffect { get; set; } = 0;
 
-        private int spriteHeight = (int) (22 * 1.3);
-        private int spriteWidth = (int) (15 * 1.3);
+        public int spriteHeight = (int) (22 * 1.3);
+        public int spriteWidth = (int) (15 * 1.3);
+
         private int maxFrames;
         private float timeSinceLastFrameStep = 0;
 

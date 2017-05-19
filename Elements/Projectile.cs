@@ -12,6 +12,8 @@ namespace SideShooting.Elements
         public Texture2D Sprite { get; set; }
         public int CurrentFrame { get; set; } = 0;
 
+        public int side = 20;//lo meto a piñon
+
         private float timeSinceLastFrameStep = 0;
         private int maxFrames = 4;
 
@@ -55,8 +57,6 @@ namespace SideShooting.Elements
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int side = 20;//lo meto a piñon
-
             Rectangle sourceRectangle = new Rectangle(1, (1 * (CurrentFrame + 1) + side * CurrentFrame) + 1, side, side);
 
             spriteBatch.Draw(Sprite, Location, sourceRectangle, Color.White);
