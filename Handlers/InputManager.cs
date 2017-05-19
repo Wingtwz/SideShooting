@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using ProyectoDAM;
 using ProyectoDAM.Screens;
 using SideShooting.Elements;
 

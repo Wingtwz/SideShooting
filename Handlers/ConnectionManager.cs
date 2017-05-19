@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -44,12 +45,6 @@ namespace ProyectoDAM
             }
         }
 
-        public void SendPosition(Vector2 location, int currentAnimation, int currentFrame)
-        {
-            sw.WriteLine($"LOCATION {location.X} {location.Y} {currentAnimation} {currentFrame}");
-            sw.Flush();
-        }
-
         public void Receiver()
         {
             string message;
@@ -73,7 +68,7 @@ namespace ProyectoDAM
                         case "PROJECTILE":
                             var p = new Projectile(GameScreen.ProjectileSprite,
                                 new Vector2(float.Parse(data[1]), float.Parse(data[2])),
-                                new Vector2(float.Parse(data[3]), float.Parse(data[4])));
+                                new Vector2(float.Parse(data[3]), float.Parse(data[4])), Convert.ToInt32(data[5]));
                             this.GameScreen.EnemyProjectiles.Add(p);
                             break;
                     }
@@ -81,9 +76,15 @@ namespace ProyectoDAM
             }
         }
 
+        public void SendPosition(Vector2 location, int currentAnimation, int currentFrame)
+        {
+            sw.WriteLine($"LOCATION {location.X} {location.Y} {currentAnimation} {currentFrame}");
+            sw.Flush();
+        }
+
         public void SendProjectile(Projectile p)
         {
-            sw.WriteLine($"PROJECTILE {p.Location.X} {p.Location.Y} {p.Acceleration.X} {p.Acceleration.Y}");
+            sw.WriteLine($"PROJECTILE {p.Location.X} {p.Location.Y} {p.Acceleration.X} {p.Acceleration.Y} {p.Id}");
             sw.Flush();
         }
     }

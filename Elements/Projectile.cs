@@ -6,6 +6,9 @@ namespace SideShooting.Elements
 {
     public class Projectile
     {
+        private static int idCounter = 0;
+
+        public int Id { get; set; }
         public Vector2 Location { get; set; }
         public Vector2 Acceleration { get; set; }
         public int Speed { get; set; } = 2;
@@ -27,13 +30,22 @@ namespace SideShooting.Elements
 
             this.Acceleration = new Vector2((float) -Math.Cos(radians) * Speed, (float) -Math.Sin(radians) * Speed);
             this.Location = playerLocation + this.Acceleration * 5;
+
+            this.Id = idCounter;
+            idCounter++;
+
+            if (idCounter >= 10000)
+            {
+                idCounter = 0;
+            }
         }
 
-        public Projectile(Texture2D sprite, Vector2 location, Vector2 acceleration)
+        public Projectile(Texture2D sprite, Vector2 location, Vector2 acceleration, int id)
         {
             this.Sprite = sprite;
             this.Location = location;
             this.Acceleration = acceleration;
+            this.Id = id;
         }
 
         public void Update(GameTime gameTime)
