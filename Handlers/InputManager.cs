@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using ProyectoDAM;
 using ProyectoDAM.Screens;
 using SideShooting.Elements;
 
@@ -72,6 +73,20 @@ namespace SideShooting
             }
 
             mOldState = mState;
+        }
+
+        public static bool GameEnded()
+        {
+            MouseState mState = Mouse.GetState();
+
+            if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
+            {
+                return true;
+            }
+
+            mOldState = mState;
+
+            return false;
         }
     }
 }

@@ -51,27 +51,37 @@ namespace ProyectoDAM.Screens
 
         public override void Update(GameTime gameTime, bool gameActive)
         {
-            if (gameActive)
+            if (Connection.ConnectionAlive)
             {
-                InputManager.Game(this, gameTime);
+                if (gameActive)
+                {
+                    InputManager.Game(this, gameTime);
+                }
+
+                this.UpdateProjectiles(Projectiles, gameTime);
+                this.UpdateProjectiles(EnemyProjectiles, gameTime);
+
+                this.CheckCollisions(EnemyProjectiles);
+
+                if (Player.DamageEffect > 0)
+                {
+                    Player.DamageEffect--;
+                }
+
+                //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
+                timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (timeSinceLastTick > 0.05)
+                {
+                    Connection.SendPosition(Player.Location, Player.CurrentAnimation, Player.CurrentFrame);
+                    timeSinceLastTick = 0;
+                }
             }
-
-            this.UpdateProjectiles(Projectiles, gameTime);
-            this.UpdateProjectiles(EnemyProjectiles, gameTime);
-
-            this.CheckCollisions(EnemyProjectiles);
-
-            if (Player.DamageEffect > 0)
+            else
             {
-                Player.DamageEffect--;
-            }
-
-            //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
-            timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeSinceLastTick > 0.05)
-            {
-                Connection.SendPosition(Player.Location, Player.CurrentAnimation, Player.CurrentFrame);
-                timeSinceLastTick = 0;
+                if (InputManager.GameEnded())
+                {
+                    GameMain.currentScreen = new MenuScreen(Content, GraphicsDevice);
+                }
             }
         }
 
@@ -115,10 +125,26 @@ namespace ProyectoDAM.Screens
                 {
                     Connection.SendRemove(projectiles[i]);
                     projectiles.Remove(projectiles[i]);
-                    //quitar vida al personaje
+                    Player.Health--;
                     Player.DamageEffect = 5;
+
+                    if (Player.Health <= 0)
+                    {
+                        Connection.SendVictory();
+                        GameEnd(false);
+                    }
                 }
             }
+        }
+
+        public void GameEnd(bool victory)
+        {
+            string message = victory ? "¡Has derrotado al jugador contrario y has ganado la partida!" :
+                "Tu salud se ha quedado a 0 y te han vencido...";
+
+            Connection.Disconnect();
+
+            //mostrar mensaje
         }
     }
 }

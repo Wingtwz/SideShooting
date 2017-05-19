@@ -45,45 +45,62 @@ namespace ProyectoDAM
             }
         }
 
+        public void Disconnect()
+        {
+            sw.Close();
+            sr.Close();
+            ns.Close();
+            Socket.Close();
+            ConnectionAlive = false;
+        }
+
         public void Receiver()
         {
             string message;
             string[] data;
 
-            while (ConnectionAlive)
+            try
             {
-                message = sr.ReadLine();
-                data = message.Split(' ');
-
-                if (Character != null)
+                while (ConnectionAlive)
                 {
-                    switch (data[0])
+                    message = sr.ReadLine();
+                    data = message.Split(' ');
+
+                    if (Character != null)
                     {
-                        case "LOCATION":
-                            this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
-                            this.Character.CurrentAnimation = int.Parse(data[3]);
-                            this.Character.CurrentFrame = int.Parse(data[4]);
-                            break;
+                        switch (data[0])
+                        {
+                            case "LOCATION":
+                                this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
+                                this.Character.CurrentAnimation = int.Parse(data[3]);
+                                this.Character.CurrentFrame = int.Parse(data[4]);
+                                break;
 
-                        case "PROJECTILE":
-                            var p = new Projectile(GameScreen.ProjectileSprite,
-                                new Vector2(float.Parse(data[1]), float.Parse(data[2])),
-                                new Vector2(float.Parse(data[3]), float.Parse(data[4])), Convert.ToInt32(data[5]));
-                            this.GameScreen.EnemyProjectiles.Add(p);
-                            break;
+                            case "PROJECTILE":
+                                var p = new Projectile(GameScreen.ProjectileSprite,
+                                    new Vector2(float.Parse(data[1]), float.Parse(data[2])),
+                                    new Vector2(float.Parse(data[3]), float.Parse(data[4])), Convert.ToInt32(data[5]));
+                                this.GameScreen.EnemyProjectiles.Add(p);
+                                break;
 
-                        case "REMOVE":
-                            for (int i = GameScreen.Projectiles.Count - 1; i >= 0; i--)
-                            {
-                                if (GameScreen.Projectiles[i].Id == Convert.ToInt32(data[1]))
+                            case "REMOVE":
+                                for (int i = GameScreen.Projectiles.Count - 1; i >= 0; i--)
                                 {
-                                    GameScreen.Projectiles.Remove(GameScreen.Projectiles[i]);
+                                    if (GameScreen.Projectiles[i].Id == Convert.ToInt32(data[1]))
+                                    {
+                                        GameScreen.Projectiles.Remove(GameScreen.Projectiles[i]);
+                                    }
                                 }
-                            }
-                            break;
+                                break;
+
+                            case "VICTORY":
+                                GameScreen.GameEnd(true);
+                                break;
+                        }
                     }
                 }
             }
+            catch (IOException) { }
         }
 
         public void SendPosition(Vector2 location, int currentAnimation, int currentFrame)
@@ -101,6 +118,12 @@ namespace ProyectoDAM
         public void SendRemove(Projectile p)
         {
             sw.WriteLine($"REMOVE {p.Id}");
+            sw.Flush();
+        }
+
+        public void SendVictory()
+        {
+            sw.WriteLine($"VICTORY");
             sw.Flush();
         }
     }
