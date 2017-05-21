@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SideShooting;
 using SideShooting.Elements;
+using System.IO;
 
 namespace ProyectoDAM.Screens
 {
@@ -51,37 +52,44 @@ namespace ProyectoDAM.Screens
 
         public override void Update(GameTime gameTime, bool gameActive)
         {
-            if (Connection.ConnectionAlive)
+            try
             {
-                if (gameActive)
+                if (Connection.ConnectionAlive)
                 {
-                    InputManager.Game(this, gameTime);
+                    if (gameActive)
+                    {
+                        InputManager.Game(this, gameTime);
+                    }
+
+                    this.UpdateProjectiles(Projectiles, gameTime);
+                    this.UpdateProjectiles(EnemyProjectiles, gameTime);
+
+                    this.CheckCollisions(EnemyProjectiles);
+
+                    if (Player.DamageEffect > 0)
+                    {
+                        Player.DamageEffect--;
+                    }
+
+                    //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
+                    timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (timeSinceLastTick > 0.05)
+                    {
+                        Connection.SendPosition(Player.Location, Player.CurrentAnimation, Player.CurrentFrame);
+                        timeSinceLastTick = 0;
+                    }
                 }
-
-                this.UpdateProjectiles(Projectiles, gameTime);
-                this.UpdateProjectiles(EnemyProjectiles, gameTime);
-
-                this.CheckCollisions(EnemyProjectiles);
-
-                if (Player.DamageEffect > 0)
+                else
                 {
-                    Player.DamageEffect--;
-                }
-
-                //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
-                timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (timeSinceLastTick > 0.05)
-                {
-                    Connection.SendPosition(Player.Location, Player.CurrentAnimation, Player.CurrentFrame);
-                    timeSinceLastTick = 0;
+                    if (InputManager.GameEnded())
+                    {
+                        GameMain.currentScreen = new MenuScreen(Content, GraphicsDevice);
+                    }
                 }
             }
-            else
+            catch (IOException)
             {
-                if (InputManager.GameEnded())
-                {
-                    GameMain.currentScreen = new MenuScreen(Content, GraphicsDevice);
-                }
+
             }
         }
 
