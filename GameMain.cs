@@ -16,6 +16,7 @@ namespace ProyectoDAM
         public static ContentManager contentManager;
         public static AppCfg Settings;
         public static Rectangle ScreenRect { get; set; }
+        public static bool DoExit { get; set; }
 
         SpriteBatch spriteBatch;
         GraphicsDeviceManager graphics;
@@ -84,7 +85,8 @@ namespace ProyectoDAM
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (DoExit)
                 Exit();
 
             // TODO: Add your update logic here

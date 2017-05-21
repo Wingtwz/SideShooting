@@ -64,17 +64,24 @@ namespace ProyectoDAM
             {
                 MouseState mouseState = Mouse.GetState();
 
-                if (mouseState.LeftButton == ButtonState.Pressed && menuRect[0].Contains(mouseState.Position))
+                if (mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    try
+                    if (menuRect[0].Contains(mouseState.Position))
                     {
-                        connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
-                        GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory),
-                            GraphicsDevice, connection);
+                        try
+                        {
+                            connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
+                            GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory),
+                                GraphicsDevice, connection);
+                        }
+                        catch (SocketException)
+                        {
+                            textStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
+                        }
                     }
-                    catch (SocketException)
+                    else if (menuRect[4].Contains(mouseState.Position))
                     {
-                        textStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
+                        GameMain.DoExit = true;
                     }
                 }
             }
