@@ -9,10 +9,11 @@ namespace ProyectoDAM
 {
     public class MenuScreen : Screen
     {
+        public string TextStatus { get; set; }
+
         private ConnectionManager connection = new ConnectionManager();
-        private SpriteFont testFont, titleFont;
-        private Texture2D bgImage;
-        private string textStatus = "Esto es un menu, pulsa aqui para continuar";
+        private SpriteFont messageFont, titleFont;
+        private Texture2D bgImage, messageImage;
         private string[] menuText = { "Jugar", "Opciones", "Ayuda", "Creditos", "Salir" };
         private Rectangle[] menuRect;
         private Rectangle rectPlay = new Rectangle(230, 230, 100, 100);
@@ -30,9 +31,10 @@ namespace ProyectoDAM
 
         public override void LoadContent()
         {
-            testFont = Content.Load<SpriteFont>("Fonts/Fpsfont");
+            messageFont = Content.Load<SpriteFont>("Fonts/SaviorMessage");
             titleFont = Content.Load<SpriteFont>("Fonts/GoooolyTitle");
             bgImage = Content.Load<Texture2D>("Images/SideShooting");
+            messageImage = Content.Load<Texture2D>("Images/message");
         }
 
         public override void Draw(GameTime gameTime)
@@ -46,7 +48,12 @@ namespace ProyectoDAM
             //for (int i = 0; i < menuRect.Length; i++)
             //    SpriteBatch.Draw(bgImage, menuRect[i], Color.White);
 
-            //SpriteBatch.DrawString(testFont, textStatus, new Vector2(250), Color.Black);
+            if (TextStatus != null && TextStatus != "")
+            {
+                int x = 200, y = 400;
+                SpriteBatch.Draw(messageImage, new Rectangle(x, y, messageImage.Width * 2, messageImage.Height * 2), Color.White);
+                SpriteBatch.DrawString(messageFont, TextStatus, new Vector2(x + 50, y + 30), Color.White);
+            }
 
             for (int i = 0, x = 1000, y = 250; i < menuText.Length; i++, y += 90)
             {
@@ -68,6 +75,8 @@ namespace ProyectoDAM
                 {
                     if (menuRect[0].Contains(mouseState.Position))
                     {
+                        TextStatus = null;
+
                         try
                         {
                             connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
@@ -76,8 +85,12 @@ namespace ProyectoDAM
                         }
                         catch (SocketException)
                         {
-                            textStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
+                            TextStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
                         }
+                    }
+                    else if (menuRect[1].Contains(mouseState.Position))
+                    {
+                        TextStatus = null;
                     }
                     else if (menuRect[4].Contains(mouseState.Position))
                     {

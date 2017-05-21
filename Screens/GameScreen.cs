@@ -89,7 +89,9 @@ namespace ProyectoDAM.Screens
             }
             catch (IOException)
             {
-
+                var menu = new MenuScreen(Content, GraphicsDevice);
+                menu.TextStatus = "Error de conexion con el servidor";
+                GameMain.currentScreen = menu;
             }
         }
 
