@@ -24,12 +24,15 @@ namespace SideShooting.Screens
         private Texture2D map;
         private Texture2D clouds;
         private Texture2D ui;
+        private Texture2D messageImage;
         private SpriteFont font;
         private Vector2[] cloudVectors = new Vector2[4];
         private Song gameSong;
         private Rectangle uiRect, uiRedRect, uiGreenBar, uiBlueBar;
         private float timeSinceLastTick = 0;
         private int cleanerEffect;
+        private string endResult;
+        private bool gameEnded;
 
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager connection) : base (content, graphics)
         {
@@ -42,6 +45,7 @@ namespace SideShooting.Screens
             this.EnemyProjectiles = new List<Projectile>();
             this.uiRect = new Rectangle(8, 8, 100, 32);
             cleanerEffect = 0;
+            gameEnded = false;
 
             for (int i = 0, x = 0, y = -720; i < cloudVectors.Length; i += 2, y += 720)
             {
@@ -79,6 +83,13 @@ namespace SideShooting.Screens
 
             SpriteBatch.DrawString(font, ""+Player.ProjectilesAvailable, new Vector2(basePos + 12, basePos + 3), Color.White);
 
+            if (gameEnded)
+            {
+                int x = 380, y = 400;
+                SpriteBatch.Draw(messageImage, new Rectangle(x, y, messageImage.Width * 2, messageImage.Height * 2), Color.White);
+                SpriteBatch.DrawString(font, endResult + "\nHaz click para volver al menu", new Vector2(x + 40, y + 20), Color.White);
+            }
+
             SpriteBatch.End();
 
             if (Player.DamageEffect % 2 != 0)
@@ -96,15 +107,14 @@ namespace SideShooting.Screens
         {
             try
             {
-                if (Connection.ConnectionAlive)
+                if (!gameEnded)
                 {
                     if (gameActive)
                     {
                         InputManager.Game(this, gameTime);
                     }
 
-                    this.UpdateProjectiles(Projectiles, gameTime);
-                    this.UpdateProjectiles(EnemyProjectiles, gameTime);
+                    this.UpdateProjectiles(gameTime);
 
                     this.CheckCollisions(EnemyProjectiles);
 
@@ -137,7 +147,7 @@ namespace SideShooting.Screens
                 }
                 else
                 {
-                    if (InputManager.GameEnded())
+                    if (gameActive && InputManager.GameEnded())
                     {
                         GameMain.currentScreen = new MenuScreen(Content, GraphicsDevice);
                     }
@@ -162,6 +172,7 @@ namespace SideShooting.Screens
             clouds = Content.Load<Texture2D>("Images/capanubes");
             ui = Content.Load<Texture2D>("Images/ui");
             font = Content.Load<SpriteFont>("Fonts/SaviorMessage");
+            messageImage = Content.Load<Texture2D>("Images/message");
         }
 
         public void DrawProjectiles(List<Projectile> projectiles)
@@ -172,16 +183,26 @@ namespace SideShooting.Screens
             }
         }
 
-        public void UpdateProjectiles(List<Projectile> projectiles, GameTime gameTime)
+        public void UpdateProjectiles(GameTime gameTime)
         {
-            for (int i = projectiles.Count - 1; i >= 0; i--)
+            for (int i = Projectiles.Count - 1; i >= 0; i--)
             {
-                projectiles[i].Update(gameTime);
+                Projectiles[i].Update(gameTime);
 
-                if (!GameMain.ScreenRect.Contains(projectiles[i].Location.ToPoint()))
+                if (!GameMain.ScreenRect.Contains(Projectiles[i].Location.ToPoint()))
                 {
-                    Projectiles.Remove(projectiles[i]);
+                    Projectiles.Remove(Projectiles[i]);
                     Player.ProjectilesAvailable++;
+                }
+            }
+
+            for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
+            {
+                EnemyProjectiles[i].Update(gameTime);
+
+                if (!GameMain.ScreenRect.Contains(EnemyProjectiles[i].Location.ToPoint()))
+                {
+                    Projectiles.Remove(EnemyProjectiles[i]);
                 }
             }
         }
@@ -217,12 +238,12 @@ namespace SideShooting.Screens
 
         public void GameEnd(bool victory)
         {
-            string message = victory ? "¡Has derrotado al jugador contrario y has ganado la partida!" :
-                "Tu salud se ha quedado a 0 y te han vencido...";
-
             Connection.Disconnect();
 
-            //mostrar mensaje
+            endResult = victory ? "Rival derrotado, has ganado" :
+                "Tu salud se ha quedado a 0 y te han vencido...";
+
+            gameEnded = true;
         }
 
         public void DoCleaner()

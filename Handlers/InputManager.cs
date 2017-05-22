@@ -232,15 +232,16 @@ namespace SideShooting.Handlers
         public static bool GameEnded()
         {
             MouseState mState = Mouse.GetState();
+            bool result = false;
 
             if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
             {
-                return true;
+                result = true;
             }
 
             mOldState = mState;
 
-            return false;
+            return result;
         }
     }
 }
