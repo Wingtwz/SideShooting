@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProyectoDAM
+namespace SideShooting
 {
 #if WINDOWS || LINUX
     /// <summary>

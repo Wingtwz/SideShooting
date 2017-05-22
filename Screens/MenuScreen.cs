@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
-using SideShooting;
 
-namespace ProyectoDAM
+namespace SideShooting.Screens
 {
     public class MenuScreen : Screen
     {

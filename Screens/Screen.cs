@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ProyectoDAM
+namespace SideShooting.Screens
 {
     public abstract class Screen
     {

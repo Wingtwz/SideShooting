@@ -1,4 +1,4 @@
-﻿namespace ProyectoDAM
+﻿namespace SideShooting
 {
     public class AppCfg
     {

@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using ProyectoDAM;
-using ProyectoDAM.Screens;
 using SideShooting.Elements;
 using SideShooting.Screens;
 using System.Net.Sockets;
 
-namespace SideShooting
+namespace SideShooting.Handlers
 {
     public static class InputManager
     {

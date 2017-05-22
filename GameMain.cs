@@ -1,11 +1,11 @@
-﻿using System.IO;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using SideShooting.Screens;
+using System.IO;
 
-namespace ProyectoDAM
+namespace SideShooting
 {
     /// <summary>
     /// This is the main type for your game.

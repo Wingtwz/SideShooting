@@ -4,10 +4,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using Microsoft.Xna.Framework;
-using ProyectoDAM.Screens;
 using SideShooting.Elements;
+using SideShooting.Screens;
 
-namespace ProyectoDAM
+namespace SideShooting.Handlers
 {
     public class ConnectionManager
     {
