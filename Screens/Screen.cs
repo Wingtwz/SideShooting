@@ -17,10 +17,10 @@ namespace SideShooting.Screens
             SpriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
-        ~Screen()
-        {
-            Content.Unload();
-        }
+        //~Screen()
+        //{
+        //    Content.Unload();
+        //}
 
         public virtual void Draw(GameTime gameTime) { }
 

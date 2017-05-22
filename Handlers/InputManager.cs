@@ -143,7 +143,11 @@ namespace SideShooting.Handlers
                 {
                     gameScreen.Player.CurrentAnimation = 0;
                 }
-                gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y + moveStep);
+
+                if (gameScreen.Player.Location.Y < 690)
+                {
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y + moveStep);
+                }
                 gameScreen.Player.Update(gameTime);
             }
 
@@ -153,7 +157,11 @@ namespace SideShooting.Handlers
                 {
                     gameScreen.Player.CurrentAnimation = 1;
                 }
-                gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X + moveStep, gameScreen.Player.Location.Y);
+
+                if (gameScreen.Player.Location.X < 1260)
+                {
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X + moveStep, gameScreen.Player.Location.Y);
+                }
                 gameScreen.Player.Update(gameTime);
             }
 
@@ -163,7 +171,11 @@ namespace SideShooting.Handlers
                 {
                     gameScreen.Player.CurrentAnimation = 2;
                 }
-                gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y - moveStep);
+
+                if (gameScreen.Player.Location.Y > 0)
+                {
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y - moveStep);
+                }
                 gameScreen.Player.Update(gameTime);
             }
 
@@ -173,7 +185,11 @@ namespace SideShooting.Handlers
                 {
                     gameScreen.Player.CurrentAnimation = 3;
                 }
-                gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X - moveStep, gameScreen.Player.Location.Y);
+
+                if (gameScreen.Player.Location.X > 0)
+                {
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X - moveStep, gameScreen.Player.Location.Y);
+                }
                 gameScreen.Player.Update(gameTime);
             }
 
