@@ -7,7 +7,7 @@ namespace SideShooting.Elements
     {
         public const int MaxHealth = 6;
         public const int MaxGreen = 50;
-        public const int MaxBlue = 200;
+        public const int MaxBlue = 100;
 
         public Texture2D Sprite { get; set; }
         public int CurrentAnimation { get; set; }
@@ -77,6 +77,11 @@ namespace SideShooting.Elements
                 else if (GreenBar < MaxGreen)
                 {
                     GreenBar++;
+                }
+
+                if (BlueBar < MaxBlue)
+                {
+                    BlueBar++;
                 }
 
                 CurrentFrame++;

@@ -28,6 +28,7 @@ namespace SideShooting.Screens
         private Song gameSong;
         private Rectangle uiRect, uiRedRect, uiGreenBar, uiBlueBar;
         private float timeSinceLastTick = 0;
+        private int cleanerEffect;
 
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager connection) : base (content, graphics)
         {
@@ -39,6 +40,7 @@ namespace SideShooting.Screens
             this.Projectiles = new List<Projectile>();
             this.EnemyProjectiles = new List<Projectile>();
             this.uiRect = new Rectangle(8, 8, 100, 32);
+            cleanerEffect = 0;
 
             for (int i = 0, x = 0, y = -720; i < cloudVectors.Length; i += 2, y += 720)
             {
@@ -80,6 +82,11 @@ namespace SideShooting.Screens
             {
                 GraphicsDevice.Clear(Color.DarkRed);
             }
+
+            if (cleanerEffect % 2 != 0)
+            {
+                GraphicsDevice.Clear(Color.Blue);
+            }
         }
 
         public override void Update(GameTime gameTime, bool gameActive)
@@ -106,6 +113,11 @@ namespace SideShooting.Screens
                     if (Player.DamageEffect > 0)
                     {
                         Player.DamageEffect--;
+                    }
+
+                    if (cleanerEffect > 0)
+                    {
+                        cleanerEffect--;
                     }
 
                     uiRedRect = new Rectangle(120, 11, (this.Player.Health * 52) / Character.MaxHealth, 6);
@@ -206,6 +218,13 @@ namespace SideShooting.Screens
             Connection.Disconnect();
 
             //mostrar mensaje
+        }
+
+        public void DoCleaner()
+        {
+            Projectiles.Clear();
+            EnemyProjectiles.Clear();
+            cleanerEffect = 5;
         }
     }
 }

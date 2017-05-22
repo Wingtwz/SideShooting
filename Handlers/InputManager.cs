@@ -191,7 +191,12 @@ namespace SideShooting.Handlers
                 gameScreen.Player.Update(gameTime);
             }
 
-            //if (gameScreen.Player.BlueBar)
+            if (kbState.IsKeyDown(Keys.Q) && gameScreen.Player.BlueBar >= Character.MaxBlue)
+            {
+                gameScreen.Player.BlueBar = 0;
+                gameScreen.Connection.SendCleaner();
+                gameScreen.DoCleaner();
+            }
 
             if (kbState.GetPressedKeys().Length <= 0)
             {
@@ -219,7 +224,7 @@ namespace SideShooting.Handlers
                 gameScreen.Player.speed = 6;
             }
 
-                mOldState = mState;
+            mOldState = mState;
         }
 
         public static bool GameEnded()

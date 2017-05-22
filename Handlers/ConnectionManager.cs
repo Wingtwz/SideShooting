@@ -119,6 +119,10 @@ namespace SideShooting.Handlers
                             case "VICTORY":
                                 GameScreen.GameEnd(true);
                                 break;
+
+                            case "CLEANER":
+                                GameScreen.DoCleaner();
+                                break;
                         }
                     }
                 }
@@ -146,7 +150,13 @@ namespace SideShooting.Handlers
 
         public void SendVictory()
         {
-            sw.WriteLine($"VICTORY");
+            sw.WriteLine("VICTORY");
+            sw.Flush();
+        }
+
+        public void SendCleaner()
+        {
+            sw.WriteLine("CLEANER");
             sw.Flush();
         }
     }
