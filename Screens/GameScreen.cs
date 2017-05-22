@@ -24,6 +24,7 @@ namespace SideShooting.Screens
         private Texture2D map;
         private Texture2D clouds;
         private Texture2D ui;
+        private SpriteFont font;
         private Vector2[] cloudVectors = new Vector2[4];
         private Song gameSong;
         private Rectangle uiRect, uiRedRect, uiGreenBar, uiBlueBar;
@@ -75,6 +76,8 @@ namespace SideShooting.Screens
             SpriteBatch.Draw(ui, new Vector2(basePos + 36, basePos + 3), uiRedRect, Color.White);
             SpriteBatch.Draw(ui, new Vector2(basePos + 36, basePos + 13), uiGreenBar, Color.White);
             SpriteBatch.Draw(ui, new Vector2(basePos + 36, basePos + 23), uiBlueBar, Color.White);
+
+            SpriteBatch.DrawString(font, ""+Player.ProjectilesAvailable, new Vector2(basePos + 12, basePos + 3), Color.White);
 
             SpriteBatch.End();
 
@@ -158,6 +161,7 @@ namespace SideShooting.Screens
             shotSound = Content.Load<SoundEffect>("Audio/dmgrecibido");
             clouds = Content.Load<Texture2D>("Images/capanubes");
             ui = Content.Load<Texture2D>("Images/ui");
+            font = Content.Load<SpriteFont>("Fonts/SaviorMessage");
         }
 
         public void DrawProjectiles(List<Projectile> projectiles)
@@ -177,6 +181,7 @@ namespace SideShooting.Screens
                 if (!GameMain.ScreenRect.Contains(projectiles[i].Location.ToPoint()))
                 {
                     Projectiles.Remove(projectiles[i]);
+                    Player.ProjectilesAvailable++;
                 }
             }
         }
@@ -225,6 +230,7 @@ namespace SideShooting.Screens
             Projectiles.Clear();
             EnemyProjectiles.Clear();
             cleanerEffect = 5;
+            Player.ProjectilesAvailable = Character.MaxProjectiles;
         }
     }
 }

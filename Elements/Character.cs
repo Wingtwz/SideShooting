@@ -8,6 +8,7 @@ namespace SideShooting.Elements
         public const int MaxHealth = 6;
         public const int MaxGreen = 50;
         public const int MaxBlue = 100;
+        public const int MaxProjectiles = 9;
 
         public Texture2D Sprite { get; set; }
         public int CurrentAnimation { get; set; }
@@ -18,6 +19,7 @@ namespace SideShooting.Elements
         public int Health { get; set; }
         public int GreenBar { get; set; }
         public int BlueBar { get; set; }
+        public int ProjectilesAvailable { get; set; }
 
         public int spriteHeight = (int) (22 * 1.3);
         public int spriteWidth = (int) (15 * 1.3);
@@ -34,6 +36,7 @@ namespace SideShooting.Elements
             Health = MaxHealth;
             GreenBar = MaxGreen;
             BlueBar = MaxBlue;
+            ProjectilesAvailable = MaxProjectiles;
 
             SourceAnimations = new Rectangle[4];
             for (int i = 0, left = 1, top = 6, width = 64, height = 22; i < SourceAnimations.Length; i++, top += 32)

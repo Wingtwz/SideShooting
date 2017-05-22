@@ -112,6 +112,7 @@ namespace SideShooting.Handlers
                                     if (GameScreen.Projectiles[i].Id == Convert.ToInt32(data[1]))
                                     {
                                         GameScreen.Projectiles.Remove(GameScreen.Projectiles[i]);
+                                        GameScreen.Player.ProjectilesAvailable++;
                                     }
                                 }
                                 break;

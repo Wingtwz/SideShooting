@@ -205,8 +205,10 @@ namespace SideShooting.Handlers
 
             MouseState mState = Mouse.GetState();
 
-            if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
+            if (gameScreen.Player.ProjectilesAvailable > 0 && mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
             {
+                gameScreen.Player.ProjectilesAvailable--;
+
                 var projectile = new Projectile(gameScreen.ProjectileSprite, gameScreen.Player.Location, mState.Position);
                 gameScreen.Projectiles.Add(projectile);
                 gameScreen.Connection.SendProjectile(projectile);
