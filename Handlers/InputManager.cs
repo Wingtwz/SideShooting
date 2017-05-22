@@ -55,6 +55,19 @@ namespace SideShooting
             mOldState = mState;
         }
 
+        public static void Waiting(WaitingScreen waitingScreen, GameTime gameTime)
+        {
+            MouseState mState = Mouse.GetState();
+
+            if (mState.LeftButton == ButtonState.Pressed && waitingScreen.disconnectRect.Contains(mState.Position))
+            {
+                waitingScreen.Connection.Disconnect();
+                GameMain.currentScreen = new MenuScreen(waitingScreen.Content, waitingScreen.GraphicsDevice);
+            }
+
+            mOldState = mState;
+        }
+
         public static void Game(GameScreen gameScreen, GameTime gameTime)
         {
             KeyboardState kbState = Keyboard.GetState();

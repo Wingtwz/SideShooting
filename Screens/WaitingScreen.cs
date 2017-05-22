@@ -5,9 +5,11 @@ using ProyectoDAM;
 
 namespace SideShooting.Screens
 {
-    class WaitingScreen : Screen
+    public class WaitingScreen : Screen
     {
         public ConnectionManager Connection { get; set; }
+
+        public Rectangle disconnectRect;
 
         private Texture2D bgImage, messageImage;
         private SpriteFont titleFont, messageFont;
@@ -17,6 +19,8 @@ namespace SideShooting.Screens
         {
             this.LoadContent();
             this.Connection = connection;
+
+            disconnectRect = new Rectangle(500, 500, 320, 80);
 
             textStatus = "Conectado, esperando a otro jugador";
         }
@@ -37,11 +41,21 @@ namespace SideShooting.Screens
 
             SpriteBatch.Draw(bgImage, new Vector2(0), Color.White);
 
-            int x = 200, y = 400;
+            int x = 400, y = 400;
             SpriteBatch.Draw(messageImage, new Rectangle(x, y, messageImage.Width * 2, messageImage.Height * 2), Color.White);
             SpriteBatch.DrawString(messageFont, textStatus, new Vector2(x + 50, y + 30), Color.White);
+            
+            SpriteBatch.DrawString(titleFont, "Desconectar", new Vector2(disconnectRect.Left + 10, disconnectRect.Top + 5), Color.White);
 
             SpriteBatch.End();
+        }
+
+        public override void Update(GameTime gameTime, bool gameActive)
+        {
+            if (gameActive)
+            {
+                InputManager.Waiting(this, gameTime);
+            }
         }
     }
 }
