@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using SideShooting.Handlers;
 
 namespace SideShooting.Screens
 {
@@ -28,8 +29,11 @@ namespace SideShooting.Screens
                 menuRect[i] = new Rectangle(x, y, width, height);
             }
 
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(bgSong);
+            if (GameMain.Settings.MusicEnabled)
+            {
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(bgSong);
+            }
         }
 
         public override void LoadContent()

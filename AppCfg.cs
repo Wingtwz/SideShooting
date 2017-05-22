@@ -2,8 +2,8 @@
 {
     public class AppCfg
     {
-        public int MusicVolume { get; set; }
-        public int SoundVolume { get; set; }
+        public bool MusicEnabled { get; set; }
+        public bool SoundEnabled { get; set; }
         public string ServerIP { get; set; }
         public int Port { get; set; }
     }

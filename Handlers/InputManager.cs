@@ -12,6 +12,29 @@ namespace SideShooting.Handlers
         private static KeyboardState kbOldState;
         private static MouseState mOldState;
 
+        public static void Options(OptionsScreen optionsScreen, GameTime gameTime)
+        {
+            MouseState mState = Mouse.GetState();
+
+            if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
+            {
+                if (optionsScreen.backRect.Contains(mState.Position))   //back
+                {
+                    GameMain.currentScreen = new MenuScreen(optionsScreen.Content, optionsScreen.GraphicsDevice);
+                }
+                else if (optionsScreen.optionsRect[0].Contains(mState.Position))    //music
+                {
+                    GameMain.Settings.MusicEnabled = !GameMain.Settings.MusicEnabled;
+                }
+                else if (optionsScreen.optionsRect[1].Contains(mState.Position))    //sound
+                {
+                    GameMain.Settings.SoundEnabled = !GameMain.Settings.SoundEnabled;
+                }
+            }
+
+            mOldState = mState;
+        }
+
         public static void Menu(MenuScreen menuScreen, GameTime gameTime)
         {
             MouseState mState = Mouse.GetState();
@@ -42,7 +65,7 @@ namespace SideShooting.Handlers
                 }
                 else if (menuScreen.menuRect[1].Contains(mState.Position))
                 {
-                    menuScreen.TextStatus = null;
+                    GameMain.currentScreen = new OptionsScreen(menuScreen.Content, menuScreen.GraphicsDevice);
                 }
                 else if (menuScreen.menuRect[4].Contains(mState.Position))
                 {
