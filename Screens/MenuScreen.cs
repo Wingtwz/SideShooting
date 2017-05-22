@@ -1,9 +1,7 @@
-﻿using System.Net.Sockets;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using ProyectoDAM.Screens;
+using SideShooting;
 
 namespace ProyectoDAM
 {
@@ -11,12 +9,13 @@ namespace ProyectoDAM
     {
         public string TextStatus { get; set; }
 
-        private ConnectionManager connection = new ConnectionManager();
+        public ConnectionManager connection = new ConnectionManager();
+        public Rectangle[] menuRect;
+        //public Rectangle rectPlay = new Rectangle(230, 230, 100, 100);
+
         private SpriteFont messageFont, titleFont;
         private Texture2D bgImage, messageImage;
         private string[] menuText = { "Jugar", "Opciones", "Ayuda", "Creditos", "Salir" };
-        private Rectangle[] menuRect;
-        private Rectangle rectPlay = new Rectangle(230, 230, 100, 100);
 
         public MenuScreen(ContentManager content, GraphicsDevice graphicsDevice) : base(content, graphicsDevice)
         {
@@ -69,34 +68,7 @@ namespace ProyectoDAM
         {
             if (gameActive)
             {
-                MouseState mouseState = Mouse.GetState();
-
-                if (mouseState.LeftButton == ButtonState.Pressed)
-                {
-                    if (menuRect[0].Contains(mouseState.Position))
-                    {
-                        TextStatus = null;
-
-                        try
-                        {
-                            connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
-                            GameMain.currentScreen = new GameScreen(new ContentManager(Content.ServiceProvider, Content.RootDirectory),
-                                GraphicsDevice, connection);
-                        }
-                        catch (SocketException)
-                        {
-                            TextStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
-                        }
-                    }
-                    else if (menuRect[1].Contains(mouseState.Position))
-                    {
-                        TextStatus = null;
-                    }
-                    else if (menuRect[4].Contains(mouseState.Position))
-                    {
-                        GameMain.DoExit = true;
-                    }
-                }
+                InputManager.Menu(this, gameTime);
             }
         }
     }

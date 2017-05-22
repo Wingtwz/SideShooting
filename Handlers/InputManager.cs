@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using ProyectoDAM;
 using ProyectoDAM.Screens;
 using SideShooting.Elements;
+using System.Net.Sockets;
 
 namespace SideShooting
 {
@@ -10,6 +12,40 @@ namespace SideShooting
     {
         private static KeyboardState kbOldState;
         private static MouseState mOldState;
+
+        public static void Menu(MenuScreen menuScreen, GameTime gameTime)
+        {
+            MouseState mState = Mouse.GetState();
+
+            if (mState.LeftButton == ButtonState.Pressed)
+            {
+                if (menuScreen.menuRect[0].Contains(mState.Position))
+                {
+                    menuScreen.TextStatus = null;
+
+                    try
+                    {
+                        menuScreen.connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
+                        GameMain.currentScreen = new GameScreen(new ContentManager(menuScreen.Content.ServiceProvider, menuScreen.Content.RootDirectory),
+                            menuScreen.GraphicsDevice, menuScreen.connection);
+                    }
+                    catch (SocketException)
+                    {
+                        menuScreen.TextStatus = "No se puede conectar al servidor"; //añadir log en caso de error?
+                    }
+                }
+                else if (menuScreen.menuRect[1].Contains(mState.Position))
+                {
+                    menuScreen.TextStatus = null;
+                }
+                else if (menuScreen.menuRect[4].Contains(mState.Position))
+                {
+                    GameMain.DoExit = true;
+                }
+            }
+
+            mOldState = mState;
+        }
 
         public static void Game(GameScreen gameScreen, GameTime gameTime)
         {
