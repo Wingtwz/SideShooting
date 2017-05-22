@@ -135,8 +135,6 @@ namespace SideShooting.Handlers
         {
             KeyboardState kbState = Keyboard.GetState();
 
-            int moveStep = 2;
-
             if (kbState.IsKeyDown(Keys.S))
             {
                 if (gameScreen.Player.CurrentAnimation != 0)
@@ -146,7 +144,7 @@ namespace SideShooting.Handlers
 
                 if (gameScreen.Player.Location.Y < 690)
                 {
-                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y + moveStep);
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y + gameScreen.Player.speed);
                 }
                 gameScreen.Player.Update(gameTime);
             }
@@ -160,7 +158,7 @@ namespace SideShooting.Handlers
 
                 if (gameScreen.Player.Location.X < 1260)
                 {
-                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X + moveStep, gameScreen.Player.Location.Y);
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X + gameScreen.Player.speed, gameScreen.Player.Location.Y);
                 }
                 gameScreen.Player.Update(gameTime);
             }
@@ -174,7 +172,7 @@ namespace SideShooting.Handlers
 
                 if (gameScreen.Player.Location.Y > 0)
                 {
-                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y - moveStep);
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X, gameScreen.Player.Location.Y - gameScreen.Player.speed);
                 }
                 gameScreen.Player.Update(gameTime);
             }
@@ -188,10 +186,12 @@ namespace SideShooting.Handlers
 
                 if (gameScreen.Player.Location.X > 0)
                 {
-                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X - moveStep, gameScreen.Player.Location.Y);
+                    gameScreen.Player.Location = new Vector2(gameScreen.Player.Location.X - gameScreen.Player.speed, gameScreen.Player.Location.Y);
                 }
                 gameScreen.Player.Update(gameTime);
             }
+
+            //if (gameScreen.Player.BlueBar)
 
             if (kbState.GetPressedKeys().Length <= 0)
             {
@@ -214,7 +214,12 @@ namespace SideShooting.Handlers
                 System.Diagnostics.Debug.WriteLine(gameScreen.Projectiles.Count);
             }
 
-            mOldState = mState;
+            if (gameScreen.Player.GreenBar >= Character.MaxGreen && mState.RightButton == ButtonState.Pressed)
+            {
+                gameScreen.Player.speed = 6;
+            }
+
+                mOldState = mState;
         }
 
         public static bool GameEnded()

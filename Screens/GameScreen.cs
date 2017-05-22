@@ -71,6 +71,8 @@ namespace SideShooting.Screens
             int basePos = 15;
             SpriteBatch.Draw(ui, new Vector2(basePos), uiRect, Color.White);
             SpriteBatch.Draw(ui, new Vector2(basePos + 36, basePos + 3), uiRedRect, Color.White);
+            SpriteBatch.Draw(ui, new Vector2(basePos + 36, basePos + 13), uiGreenBar, Color.White);
+            SpriteBatch.Draw(ui, new Vector2(basePos + 36, basePos + 23), uiBlueBar, Color.White);
 
             SpriteBatch.End();
 
@@ -107,6 +109,8 @@ namespace SideShooting.Screens
                     }
 
                     uiRedRect = new Rectangle(120, 11, (this.Player.Health * 52) / Character.MaxHealth, 6);
+                    uiGreenBar = new Rectangle(120, 21, (this.Player.GreenBar * 52) / Character.MaxGreen, 6);
+                    uiBlueBar = new Rectangle(120, 31, (this.Player.BlueBar * 52) / Character.MaxBlue, 6);
 
                     //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
                     timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;

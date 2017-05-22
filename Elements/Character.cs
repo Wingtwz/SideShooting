@@ -6,6 +6,8 @@ namespace SideShooting.Elements
     public class Character
     {
         public const int MaxHealth = 6;
+        public const int MaxGreen = 50;
+        public const int MaxBlue = 200;
 
         public Texture2D Sprite { get; set; }
         public int CurrentAnimation { get; set; }
@@ -14,9 +16,12 @@ namespace SideShooting.Elements
         public Vector2 Location { get; set; }
         public int DamageEffect { get; set; } = 0;
         public int Health { get; set; }
+        public int GreenBar { get; set; }
+        public int BlueBar { get; set; }
 
         public int spriteHeight = (int) (22 * 1.3);
         public int spriteWidth = (int) (15 * 1.3);
+        public int speed = 2;
 
         private int maxFrames;
         private float timeSinceLastFrameStep = 0;
@@ -27,6 +32,8 @@ namespace SideShooting.Elements
             CurrentFrame = 1;
             maxFrames = 3;
             Health = MaxHealth;
+            GreenBar = MaxGreen;
+            BlueBar = MaxBlue;
 
             SourceAnimations = new Rectangle[4];
             for (int i = 0, left = 1, top = 6, width = 64, height = 22; i < SourceAnimations.Length; i++, top += 32)
@@ -58,6 +65,20 @@ namespace SideShooting.Elements
 
             if (timeSinceLastFrameStep > 0.15)
             {
+                if (speed > 2 && GreenBar > 0)
+                {
+                    GreenBar -= 5;
+
+                    if (GreenBar <= 0)
+                    {
+                        speed = 2;
+                    }
+                }
+                else if (GreenBar < MaxGreen)
+                {
+                    GreenBar++;
+                }
+
                 CurrentFrame++;
                 timeSinceLastFrameStep = 0;
 
