@@ -135,7 +135,7 @@ namespace SideShooting.Handlers
         {
             KeyboardState kbState = Keyboard.GetState();
 
-            int moveStep = 1;
+            int moveStep = 2;
 
             if (kbState.IsKeyDown(Keys.S))
             {

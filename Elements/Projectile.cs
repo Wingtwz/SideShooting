@@ -11,7 +11,7 @@ namespace SideShooting.Elements
         public int Id { get; set; }
         public Vector2 Location { get; set; }
         public Vector2 Acceleration { get; set; }
-        public int Speed { get; set; } = 2;
+        public int Speed { get; set; } = 4;
         public Texture2D Sprite { get; set; }
         public int CurrentFrame { get; set; } = 0;
 

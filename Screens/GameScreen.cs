@@ -32,7 +32,10 @@ namespace SideShooting.Screens
             this.Projectiles = new List<Projectile>();
             this.EnemyProjectiles = new List<Projectile>();
 
-            MediaPlayer.Play(gameSong);
+            if (GameMain.Settings.MusicEnabled)
+            {
+                MediaPlayer.Play(gameSong);
+            }
         }
 
         public override void Draw(GameTime gameTime)
