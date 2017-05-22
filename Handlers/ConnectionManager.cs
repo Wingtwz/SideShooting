@@ -20,34 +20,41 @@ namespace SideShooting.Handlers
         private StreamReader sr;
         private StreamWriter sw;
 
-        public bool Connect(string IP, int port)
+        public bool? Connect(string IP, int port)
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), port);
-            bool ready = false;
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            Socket.Connect(ep);
-            Socket.SendTimeout = 5;
-
-            ns = new NetworkStream(Socket);
-            sr = new StreamReader(ns);
-            sw = new StreamWriter(ns);
-
-            if (sr.ReadLine() != "ConectadoASideShooting")
+            bool? ready = false;
+            try
             {
-                throw new SocketException();
-            }
-            else
-            {
-                sw.WriteLine("OKSS");
-                sw.Flush();
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), port);
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socket.Connect(ep);
+                Socket.SendTimeout = 5;
 
-                if (sr.ReadLine() == "READY")
+                ns = new NetworkStream(Socket);
+                sr = new StreamReader(ns);
+                sw = new StreamWriter(ns);
+
+                if (sr.ReadLine() != "ConectadoASideShooting")
                 {
-                    ready = true;
+                    throw new SocketException();
                 }
+                else
+                {
+                    sw.WriteLine("OKSS");
+                    sw.Flush();
 
-                Thread thread = new Thread(Receiver);
-                thread.Start();
+                    if (sr.ReadLine() == "READY")
+                    {
+                        ready = true;
+                    }
+
+                    Thread thread = new Thread(Receiver);
+                    thread.Start();
+                }
+            }
+            catch (FormatException)
+            {
+                ready = null;
             }
 
             return ready;

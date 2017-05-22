@@ -81,15 +81,20 @@ namespace SideShooting.Handlers
 
                     try
                     {
-                        if (menuScreen.connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port))
+                        bool? result = menuScreen.connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
+                        if (result == true)
                         {
                             var game = new GameScreen(new ContentManager(menuScreen.Content.ServiceProvider, menuScreen.Content.RootDirectory), menuScreen.GraphicsDevice, menuScreen.connection);
                             game.Player.Location = new Vector2(1100, 350);
                             GameMain.currentScreen = game;
                         }
-                        else
+                        else if (result == false)
                         {
                             GameMain.currentScreen = new WaitingScreen(menuScreen.Content, menuScreen.GraphicsDevice, menuScreen.connection);
+                        }
+                        else
+                        {
+                            menuScreen.TextStatus = "IP no valida,\ncomprueba el archivo appsettings.json";
                         }
                     }
                     catch (SocketException)

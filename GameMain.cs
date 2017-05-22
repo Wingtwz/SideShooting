@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using SideShooting.Screens;
+using System;
 using System.IO;
 
 namespace SideShooting
@@ -30,7 +31,7 @@ namespace SideShooting
                 var json = sr.ReadToEnd();
                 Settings = JsonConvert.DeserializeObject<AppCfg>(json);
             }
-            catch (IOException)
+            catch (Exception ex) when (ex is IOException || ex is JsonReaderException)
             {
                 Settings = new AppCfg();
                 Settings.MusicEnabled = true;

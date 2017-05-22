@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using SideShooting.Elements;
 using SideShooting.Handlers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -153,6 +154,7 @@ namespace SideShooting.Screens
                     }
                 }
             }
+            catch (ObjectDisposedException) { }
             catch (IOException)
             {
                 var menu = new MenuScreen(Content, GraphicsDevice);
