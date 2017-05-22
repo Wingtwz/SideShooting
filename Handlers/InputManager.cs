@@ -205,6 +205,12 @@ namespace SideShooting.Handlers
                 var projectile = new Projectile(gameScreen.ProjectileSprite, gameScreen.Player.Location, mState.Position);
                 gameScreen.Projectiles.Add(projectile);
                 gameScreen.Connection.SendProjectile(projectile);
+
+                if (GameMain.Settings.SoundEnabled)
+                {
+                    gameScreen.shotSound.Play();
+                }
+
                 System.Diagnostics.Debug.WriteLine(gameScreen.Projectiles.Count);
             }
 

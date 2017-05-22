@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -16,6 +17,8 @@ namespace SideShooting.Screens
         public List<Projectile> Projectiles { get; set; }
         public List<Projectile> EnemyProjectiles { get; set; }
         public ConnectionManager Connection { get; set; }
+
+        public SoundEffect hitSound, shotSound;
 
         private Texture2D characterSprite;
         private Texture2D map;
@@ -108,6 +111,8 @@ namespace SideShooting.Screens
             ProjectileSprite = Content.Load<Texture2D>("Images/proyectil");
             map = Content.Load<Texture2D>("Images/mapahierba");
             gameSong = Content.Load<Song>("Audio/juego2");
+            hitSound = Content.Load<SoundEffect>("Audio/enemigotocado");
+            shotSound = Content.Load<SoundEffect>("Audio/dmgrecibido");
         }
 
         public void DrawProjectiles(List<Projectile> projectiles)
@@ -145,6 +150,11 @@ namespace SideShooting.Screens
                     projectiles.Remove(projectiles[i]);
                     Player.Health--;
                     Player.DamageEffect = 5;
+
+                    if (GameMain.Settings.SoundEnabled)
+                    {
+                        hitSound.Play();
+                    }
 
                     if (Player.Health <= 0)
                     {
