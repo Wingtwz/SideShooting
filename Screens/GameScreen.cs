@@ -23,8 +23,10 @@ namespace SideShooting.Screens
         private Texture2D characterSprite;
         private Texture2D map;
         private Texture2D clouds;
+        private Texture2D ui;
         private Vector2[] cloudVectors = new Vector2[4];
         private Song gameSong;
+        private Rectangle uiRect, uiRedRect, uiGreenBar, uiBlueBar;
         private float timeSinceLastTick = 0;
 
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager connection) : base (content, graphics)
@@ -36,6 +38,7 @@ namespace SideShooting.Screens
             this.Connection.GameScreen = this;
             this.Projectiles = new List<Projectile>();
             this.EnemyProjectiles = new List<Projectile>();
+            this.uiRect = new Rectangle(8, 8, 100, 32);
 
             for (int i = 0, x = 0, y = -720; i < cloudVectors.Length; i += 2, y += 720)
             {
@@ -64,6 +67,8 @@ namespace SideShooting.Screens
             {
                 SpriteBatch.Draw(clouds, vector, Color.White);
             }
+
+            SpriteBatch.Draw(ui, new Vector2(15), uiRect, Color.White);
 
             SpriteBatch.End();
 
@@ -132,6 +137,7 @@ namespace SideShooting.Screens
             hitSound = Content.Load<SoundEffect>("Audio/enemigotocado");
             shotSound = Content.Load<SoundEffect>("Audio/dmgrecibido");
             clouds = Content.Load<Texture2D>("Images/capanubes");
+            ui = Content.Load<Texture2D>("Images/ui");
         }
 
         public void DrawProjectiles(List<Projectile> projectiles)
