@@ -5,6 +5,8 @@ namespace SideShooting.Elements
 {
     public class Character
     {
+        public const int MaxHealth = 6;
+
         public Texture2D Sprite { get; set; }
         public int CurrentAnimation { get; set; }
         public int CurrentFrame { get; set; }
@@ -24,7 +26,7 @@ namespace SideShooting.Elements
             this.Sprite = sprite;
             CurrentFrame = 1;
             maxFrames = 3;
-            Health = 6;
+            Health = MaxHealth;
 
             SourceAnimations = new Rectangle[4];
             for (int i = 0, left = 1, top = 6, width = 64, height = 22; i < SourceAnimations.Length; i++, top += 32)

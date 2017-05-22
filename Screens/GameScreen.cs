@@ -68,7 +68,9 @@ namespace SideShooting.Screens
                 SpriteBatch.Draw(clouds, vector, Color.White);
             }
 
-            SpriteBatch.Draw(ui, new Vector2(15), uiRect, Color.White);
+            int basePos = 15;
+            SpriteBatch.Draw(ui, new Vector2(basePos), uiRect, Color.White);
+            SpriteBatch.Draw(ui, new Vector2(basePos + 36, basePos + 3), uiRedRect, Color.White);
 
             SpriteBatch.End();
 
@@ -103,6 +105,8 @@ namespace SideShooting.Screens
                     {
                         Player.DamageEffect--;
                     }
+
+                    uiRedRect = new Rectangle(120, 11, (this.Player.Health * 52) / Character.MaxHealth, 6);
 
                     //20 ticks por segundo (cada 0.05s) en cuanto a la actualización de servidor
                     timeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
