@@ -1,13 +1,7 @@
 ﻿- todo
 cambiar el gestor de escenas a usar un stack lifo?
 modificar el unload en los destructores de las escenas
-ajustar límites de movimiento en la pantalla
 
 - tareas
-controlar cuando se termina la aprtida
-limitar a X(10?) disparos simultaneos
-ajustar como se crean el resto de personajes, ahora está super bugeado, el personaje ya sale creado a la espera de una conexión
-controlar cuando se pueden generar proyectiles
 cambiar sprite (y añadir rect) para animacion de sufrir golpe?
-añadir capa de nubes para parallax
 añadir efecto particulas de tierra

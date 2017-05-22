@@ -6,16 +6,45 @@ using System;
 
 namespace SideShooting.Screens
 {
+    /// <summary>
+    /// Contiene los métodos y parámetros de la escena con el menú de opciones del juego
+    /// </summary>
     public class OptionsScreen : Screen
     {
+        /// <summary>
+        /// Contiene los límites para pulsar "Atrás" y retroceder a <see cref="MenuScreen"/>
+        /// </summary>
         public Rectangle backRect;
+        /// <summary>
+        /// Contiene los límites de las zonas clicables de las opciones
+        /// </summary>
         public Rectangle[] optionsRect = new Rectangle[2];
 
+        /// <summary>
+        /// Texturas de la imagen de fondo (bg), interfaz (ui) y textura para volcar información
+        /// </summary>
+        /// <remarks>dataTexture se usa para dibujar marcas rojas sobre las opciones activadas,
+        /// se necesita volcar cierta información ahí para poder dibujar una línea.</remarks>
         private Texture2D bgImage, uiImage, dataTexture;
+
+        /// <summary>
+        /// Fuente de texto para dibujar
+        /// </summary>
         private SpriteFont titleFont;
+        /// <summary>
+        /// Texto con las opciones del menú
+        /// </summary>
         private string[] optionsText = { "Activar musica", "Activar sonidos" };
+        /// <summary>
+        /// Localización de las opciones del menú
+        /// </summary>
         private Vector2[] optionsLocation = new Vector2[2];
 
+        /// <summary>
+        /// Inicializa una instancia de la clase
+        /// </summary>
+        /// <param name="content">Gestor de contenido en uso</param>
+        /// <param name="graphicsDevice">Interfaz sobre la que dibujar en uso</param>
         public OptionsScreen(ContentManager content, GraphicsDevice graphicsDevice) : base(content, graphicsDevice)
         {
             this.LoadContent();
@@ -37,6 +66,9 @@ namespace SideShooting.Screens
             }
         }
 
+        /// <summary>
+        /// Aquí se realizará la carga de contenido de archivos
+        /// </summary>
         public override void LoadContent()
         {
             titleFont = Content.Load<SpriteFont>("Fonts/GoooolyTitle");
@@ -44,6 +76,10 @@ namespace SideShooting.Screens
             uiImage = Content.Load<Texture2D>("Images/ui");
         }
 
+        /// <summary>
+        /// Dibuja la escena actual y su información relevante
+        /// </summary>
+        /// <param name="gameTime">Valor de tiempo actual</param>
         public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.LightGray);
@@ -72,6 +108,11 @@ namespace SideShooting.Screens
             SpriteBatch.End();
         }
 
+        /// <summary>
+        /// Controla las pulsaciones de la escena
+        /// </summary>
+        /// <param name="gameTime">Valor de tiempo actual</param>
+        /// <param name="gameActive">Indica si la ventana de juego tiene el foco en el sistema</param>
         public override void Update(GameTime gameTime, bool gameActive)
         {
             if (gameActive)
@@ -80,6 +121,12 @@ namespace SideShooting.Screens
             }
         }
 
+        /// <summary>
+        /// Método para dibujar una línea
+        /// </summary>
+        /// <param name="sb"><see cref="SpriteBatch"/> en uso</param>
+        /// <param name="start">Vector con el inicio de la línea</param>
+        /// <param name="end">Vector con el final de la línea</param>
         public void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
         {
             Vector2 edge = end - start;

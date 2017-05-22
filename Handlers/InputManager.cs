@@ -8,26 +8,41 @@ using System.Net.Sockets;
 
 namespace SideShooting.Handlers
 {
+    /// <summary>
+    /// Contiene métodos auxiliares para gestionar las pulsaciones en las distintas escenas del juego
+    /// </summary>
     public abstract class InputManager
     {
-        private static KeyboardState kbOldState;
+        /// <summary>
+        /// Indica el último valor de estado que ha tenido el ratón
+        /// </summary>
         private static MouseState mOldState;
 
-        public static void Credits(CreditsScreen helpScreen, GameTime gameTime)
+        /// <summary>
+        /// Gestiona cualquier pulsación para <see cref="CreditsScreen"/>
+        /// </summary>
+        /// <param name="creditsScreen">Escena de créditos que llama al método</param>
+        /// <param name="gameTime">Valor de tiempo actual</param>
+        public static void Credits(CreditsScreen creditsScreen, GameTime gameTime)
         {
             MouseState mState = Mouse.GetState();
 
             if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
             {
-                if (helpScreen.backRect.Contains(mState.Position))   //back
+                if (creditsScreen.backRect.Contains(mState.Position))   //back
                 {
-                    GameMain.currentScreen = new MenuScreen(helpScreen.Content, helpScreen.GraphicsDevice);
+                    GameMain.currentScreen = new MenuScreen(creditsScreen.Content, creditsScreen.GraphicsDevice);
                 }
             }
 
             mOldState = mState;
         }
 
+        /// <summary>
+        /// Gestiona cualquier pulsación para <see cref="HelpScreen"/>
+        /// </summary>
+        /// <param name="helpScreen">Escena de ayuda que llama al método</param>
+        /// <param name="gameTime">Valor de tiempo actual</param>
         public static void Help(HelpScreen helpScreen, GameTime gameTime)
         {
             MouseState mState = Mouse.GetState();
@@ -43,6 +58,11 @@ namespace SideShooting.Handlers
             mOldState = mState;
         }
 
+        /// <summary>
+        /// Gestiona cualquier pulsación para <see cref="OptionsScreen"/>
+        /// </summary>
+        /// <param name="optionsScreen">Escena de opciones que llama al método</param>
+        /// <param name="gameTime">Valor de tiempo actual</param>
         public static void Options(OptionsScreen optionsScreen, GameTime gameTime)
         {
             MouseState mState = Mouse.GetState();
@@ -69,6 +89,11 @@ namespace SideShooting.Handlers
             mOldState = mState;
         }
 
+        /// <summary>
+        /// Gestiona cualquier pulsación para <see cref="MenuScreen"/>
+        /// </summary>
+        /// <param name="menuScreen">Escena de menú que llama al método</param>
+        /// <param name="gameTime">Valor de tiempo actual</param>
         public static void Menu(MenuScreen menuScreen, GameTime gameTime)
         {
             MouseState mState = Mouse.GetState();
@@ -123,6 +148,11 @@ namespace SideShooting.Handlers
             mOldState = mState;
         }
 
+        /// <summary>
+        /// Gestiona cualquier pulsación para <see cref="WaitingScreen"/>
+        /// </summary>
+        /// <param name="waitingScreen">Escena de espera que llama al método</param>
+        /// <param name="gameTime">Valor de tiempo actual</param>
         public static void Waiting(WaitingScreen waitingScreen, GameTime gameTime)
         {
             MouseState mState = Mouse.GetState();
@@ -136,6 +166,11 @@ namespace SideShooting.Handlers
             mOldState = mState;
         }
 
+        /// <summary>
+        /// Gestiona cualquier pulsación para <see cref="GameScreen"/>
+        /// </summary>
+        /// <param name="gameScreen">Escena de juego que llama al método</param>
+        /// <param name="gameTime">Valor de tiempo actual</param>
         public static void Game(GameScreen gameScreen, GameTime gameTime)
         {
             KeyboardState kbState = Keyboard.GetState();
@@ -234,6 +269,10 @@ namespace SideShooting.Handlers
             mOldState = mState;
         }
 
+        /// <summary>
+        /// Se llama desde <see cref="GameScreen"/> si el juego ha terminado
+        /// </summary>
+        /// <returns>Indica si se debe salir del juego y volver al menú</returns>
         public static bool GameEnded()
         {
             MouseState mState = Mouse.GetState();
