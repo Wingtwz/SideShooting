@@ -20,9 +20,10 @@ namespace ProyectoDAM
         private StreamReader sr;
         private StreamWriter sw;
 
-        public void Connect(string IP, int port)
+        public bool Connect(string IP, int port)
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), port);
+            bool ready = false;
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Socket.Connect(ep);
             Socket.SendTimeout = 5;
@@ -40,9 +41,23 @@ namespace ProyectoDAM
                 sw.WriteLine("OKSS");
                 sw.Flush();
 
+                if (sr.ReadLine() == "READY")
+                {
+                    ready = true;
+                }
+
                 Thread thread = new Thread(Receiver);
                 thread.Start();
             }
+
+            return ready;
+        }
+
+        public void ContinueToGame()
+        {
+            var game = new GameScreen(GameMain.currentScreen.Content, GameMain.currentScreen.GraphicsDevice, this);
+            game.Player.Location = new Vector2(100, 350);
+            GameMain.currentScreen = game;
         }
 
         public void Disconnect()
@@ -64,12 +79,20 @@ namespace ProyectoDAM
                 while (ConnectionAlive)
                 {
                     message = sr.ReadLine();
+
+                    if (message == "GO")
+                        ContinueToGame();
+
                     data = message.Split(' ');
 
                     if (Character != null)
                     {
                         switch (data[0])
                         {
+                            case "GO":
+                                ContinueToGame();
+                                break;
+
                             case "LOCATION":
                                 this.Character.Location = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
                                 this.Character.CurrentAnimation = int.Parse(data[3]);

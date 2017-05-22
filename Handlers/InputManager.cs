@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using ProyectoDAM;
 using ProyectoDAM.Screens;
 using SideShooting.Elements;
+using SideShooting.Screens;
 using System.Net.Sockets;
 
 namespace SideShooting
@@ -25,9 +26,16 @@ namespace SideShooting
 
                     try
                     {
-                        menuScreen.connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port);
-                        GameMain.currentScreen = new GameScreen(new ContentManager(menuScreen.Content.ServiceProvider, menuScreen.Content.RootDirectory),
-                            menuScreen.GraphicsDevice, menuScreen.connection);
+                        if (menuScreen.connection.Connect(GameMain.Settings.ServerIP, GameMain.Settings.Port))
+                        {
+                            var game = new GameScreen(new ContentManager(menuScreen.Content.ServiceProvider, menuScreen.Content.RootDirectory), menuScreen.GraphicsDevice, menuScreen.connection);
+                            game.Player.Location = new Vector2(1100, 350);
+                            GameMain.currentScreen = game;
+                        }
+                        else
+                        {
+                            GameMain.currentScreen = new WaitingScreen(menuScreen.Content, menuScreen.GraphicsDevice, menuScreen.connection);
+                        }
                     }
                     catch (SocketException)
                     {
