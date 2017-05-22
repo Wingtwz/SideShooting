@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SideShooting.Elements;
 using SideShooting.Screens;
 using System.Net.Sockets;
@@ -20,11 +21,14 @@ namespace SideShooting.Handlers
             {
                 if (optionsScreen.backRect.Contains(mState.Position))   //back
                 {
+                    GameMain.WriteSettings();
                     GameMain.currentScreen = new MenuScreen(optionsScreen.Content, optionsScreen.GraphicsDevice);
                 }
                 else if (optionsScreen.optionsRect[0].Contains(mState.Position))    //music
                 {
                     GameMain.Settings.MusicEnabled = !GameMain.Settings.MusicEnabled;
+                    if (!GameMain.Settings.MusicEnabled)
+                        MediaPlayer.Stop();
                 }
                 else if (optionsScreen.optionsRect[1].Contains(mState.Position))    //sound
                 {

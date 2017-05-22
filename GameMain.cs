@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using SideShooting.Screens;
 using System.IO;
 
@@ -21,13 +21,45 @@ namespace SideShooting
         SpriteBatch spriteBatch;
         GraphicsDeviceManager graphics;
 
-        private static AppCfg ReadSettings()
+        public void ReadSettings()
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+            StreamReader sr = null;
+            try
+            {
+                sr = new StreamReader("appsettings.json");
+                var json = sr.ReadToEnd();
+                Settings = JsonConvert.DeserializeObject<AppCfg>(json);
+            }
+            catch (IOException)
+            {
+                Settings = new AppCfg();
+                Settings.MusicEnabled = true;
+                Settings.SoundEnabled = true;
+                Settings.ServerIP = "127.0.0.1";
+                Settings.Port = 31416;
+            }
+            finally
+            {
+                if (sr != null)
+                    sr.Close();
+            }
+        }
 
-            return builder.Build().Get<AppCfg>();
+        public static void WriteSettings()
+        {
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter("appsettings.json");
+                var json = JsonConvert.SerializeObject(Settings);
+                sw.Write(json);
+            }
+            catch (IOException) { }
+            finally
+            {
+                if (sw != null)
+                    sw.Close();
+            }
         }
 
         public GameMain()
@@ -36,7 +68,7 @@ namespace SideShooting
             this.IsMouseVisible = true;
             this.Window.Title = "SideShooting";
             Content.RootDirectory = "Content";
-            Settings = ReadSettings();
+            ReadSettings();
         }
 
         /// <summary>
