@@ -22,6 +22,8 @@ namespace SideShooting.Screens
 
         private Texture2D characterSprite;
         private Texture2D map;
+        private Texture2D clouds;
+        private Vector2[] cloudVectors = new Vector2[4];
         private Song gameSong;
         private float timeSinceLastTick = 0;
 
@@ -34,6 +36,12 @@ namespace SideShooting.Screens
             this.Connection.GameScreen = this;
             this.Projectiles = new List<Projectile>();
             this.EnemyProjectiles = new List<Projectile>();
+
+            for (int i = 0, x = 0, y = -720; i < cloudVectors.Length; i += 2, y += 720)
+            {
+                cloudVectors[i] = new Vector2(x, y);
+                cloudVectors[i + 1] = new Vector2(x + 1280, y);
+            }
 
             if (GameMain.Settings.MusicEnabled)
             {
@@ -51,6 +59,11 @@ namespace SideShooting.Screens
             Connection.Character.Draw(SpriteBatch);
             this.DrawProjectiles(Projectiles);
             this.DrawProjectiles(EnemyProjectiles);
+
+            foreach (var vector in cloudVectors)
+            {
+                SpriteBatch.Draw(clouds, vector, Color.White);
+            }
 
             SpriteBatch.End();
 
@@ -75,6 +88,11 @@ namespace SideShooting.Screens
                     this.UpdateProjectiles(EnemyProjectiles, gameTime);
 
                     this.CheckCollisions(EnemyProjectiles);
+
+                    for (int i = 0; i < cloudVectors.Length; i++)
+                    {
+                        cloudVectors[i] = new Vector2(cloudVectors[i].X < -1279 ? 1280 : cloudVectors[i].X - 1, cloudVectors[i].Y > 720 ? -720 : cloudVectors[i].Y + 1);
+                    }
 
                     if (Player.DamageEffect > 0)
                     {
@@ -113,6 +131,7 @@ namespace SideShooting.Screens
             gameSong = Content.Load<Song>("Audio/juego2");
             hitSound = Content.Load<SoundEffect>("Audio/enemigotocado");
             shotSound = Content.Load<SoundEffect>("Audio/dmgrecibido");
+            clouds = Content.Load<Texture2D>("Images/capanubes");
         }
 
         public void DrawProjectiles(List<Projectile> projectiles)
