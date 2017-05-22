@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using SideShooting;
 
 namespace ProyectoDAM
@@ -13,6 +14,7 @@ namespace ProyectoDAM
         public Rectangle[] menuRect;
         //public Rectangle rectPlay = new Rectangle(230, 230, 100, 100);
 
+        private Song bgSong;
         private SpriteFont messageFont, titleFont;
         private Texture2D bgImage, messageImage;
         private string[] menuText = { "Jugar", "Opciones", "Ayuda", "Creditos", "Salir" };
@@ -26,6 +28,9 @@ namespace ProyectoDAM
             {
                 menuRect[i] = new Rectangle(x, y, width, height);
             }
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(bgSong);
         }
 
         public override void LoadContent()
@@ -34,6 +39,7 @@ namespace ProyectoDAM
             titleFont = Content.Load<SpriteFont>("Fonts/GoooolyTitle");
             bgImage = Content.Load<Texture2D>("Images/SideShooting");
             messageImage = Content.Load<Texture2D>("Images/message");
+            bgSong = Content.Load<Song>("Audio/menu");
         }
 
         public override void Draw(GameTime gameTime)

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SideShooting;
 using SideShooting.Elements;
 using System.IO;
+using Microsoft.Xna.Framework.Media;
 
 namespace ProyectoDAM.Screens
 {
@@ -18,6 +19,7 @@ namespace ProyectoDAM.Screens
 
         private Texture2D characterSprite;
         private Texture2D map;
+        private Song gameSong;
         private float timeSinceLastTick = 0;
 
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager connection) : base (content, graphics)
@@ -29,6 +31,8 @@ namespace ProyectoDAM.Screens
             this.Connection.GameScreen = this;
             this.Projectiles = new List<Projectile>();
             this.EnemyProjectiles = new List<Projectile>();
+
+            MediaPlayer.Play(gameSong);
         }
 
         public override void Draw(GameTime gameTime)
@@ -100,6 +104,7 @@ namespace ProyectoDAM.Screens
             characterSprite = Content.Load<Texture2D>("Images/character");
             ProjectileSprite = Content.Load<Texture2D>("Images/proyectil");
             map = Content.Load<Texture2D>("Images/mapahierba");
+            gameSong = Content.Load<Song>("Audio/juego2");
         }
 
         public void DrawProjectiles(List<Projectile> projectiles)
