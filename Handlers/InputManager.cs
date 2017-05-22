@@ -8,10 +8,40 @@ using System.Net.Sockets;
 
 namespace SideShooting.Handlers
 {
-    public static class InputManager
+    public abstract class InputManager
     {
         private static KeyboardState kbOldState;
         private static MouseState mOldState;
+
+        public static void Credits(CreditsScreen helpScreen, GameTime gameTime)
+        {
+            MouseState mState = Mouse.GetState();
+
+            if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
+            {
+                if (helpScreen.backRect.Contains(mState.Position))   //back
+                {
+                    GameMain.currentScreen = new MenuScreen(helpScreen.Content, helpScreen.GraphicsDevice);
+                }
+            }
+
+            mOldState = mState;
+        }
+
+        public static void Help(HelpScreen helpScreen, GameTime gameTime)
+        {
+            MouseState mState = Mouse.GetState();
+
+            if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
+            {
+                if (helpScreen.backRect.Contains(mState.Position))   //back
+                {
+                    GameMain.currentScreen = new MenuScreen(helpScreen.Content, helpScreen.GraphicsDevice);
+                }
+            }
+
+            mOldState = mState;
+        }
 
         public static void Options(OptionsScreen optionsScreen, GameTime gameTime)
         {
@@ -70,6 +100,14 @@ namespace SideShooting.Handlers
                 else if (menuScreen.menuRect[1].Contains(mState.Position))
                 {
                     GameMain.currentScreen = new OptionsScreen(menuScreen.Content, menuScreen.GraphicsDevice);
+                }
+                else if (menuScreen.menuRect[2].Contains(mState.Position))
+                {
+                    GameMain.currentScreen = new HelpScreen(menuScreen.Content, menuScreen.GraphicsDevice);
+                }
+                else if (menuScreen.menuRect[3].Contains(mState.Position))
+                {
+                    GameMain.currentScreen = new CreditsScreen(menuScreen.Content, menuScreen.GraphicsDevice);
                 }
                 else if (menuScreen.menuRect[4].Contains(mState.Position))
                 {
