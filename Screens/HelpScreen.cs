@@ -31,7 +31,7 @@ namespace SideShooting.Screens
             "El objetivo es derrotar al jugador acertandole con disparos, y al mismo tiempo esquivar los del rival.\n" +
             "Cada jugador puede aguantar hasta 6 disparos antes de perder.\n" +
             "Los controles son:\n" +
-            "W/A/S/D: Moverse hacia arriba/izquierda/abajo/derecha/n" +
+            "W/A/S/D: Moverse hacia arriba/izquierda/abajo/derecha\n" +
             "Clic izquierdo: disparar en direccion al cursor del raton.\n" +
             "Clic derecho: aceleron - permite moverse mas rapido durante un corto espacio de tiempo.\n" +
             "Q: fogueo - permite borrar todos los proyectiles que existen en el mapa.\n\n" +
