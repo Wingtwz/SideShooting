@@ -275,15 +275,13 @@ namespace SideShooting.Handlers
         /// <returns>Indica si se debe salir del juego y volver al menú</returns>
         public static bool GameEnded()
         {
-            MouseState mState = Mouse.GetState();
+            KeyboardState kbState = Keyboard.GetState();
             bool result = false;
 
-            if (mState.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
+            if (kbState.IsKeyDown(Keys.Space))//kb.LeftButton == ButtonState.Pressed && mOldState.LeftButton == ButtonState.Released)
             {
                 result = true;
             }
-
-            mOldState = mState;
 
             return result;
         }

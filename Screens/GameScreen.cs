@@ -170,7 +170,7 @@ namespace SideShooting.Screens
             {
                 int x = 380, y = 400;
                 SpriteBatch.Draw(messageImage, new Rectangle(x, y, messageImage.Width * 2, messageImage.Height * 2), Color.White);
-                SpriteBatch.DrawString(font, endResult + "\nHaz click para volver al menu", new Vector2(x + 40, y + 20), Color.White);
+                SpriteBatch.DrawString(font, endResult + "\nPulsa espacio para volver al menu", new Vector2(x + 40, y + 20), Color.White);
             }
 
             SpriteBatch.End();
