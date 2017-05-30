@@ -109,7 +109,7 @@ namespace SideShooting.Screens
         /// Crea una nueva instancia de la escena de juego
         /// </summary>
         /// <param name="content">Gestor de contenido en uso</param>
-        /// <param name="graphicsDevice">Interfaz sobre la que dibujar en uso</param>
+        /// <param name="graphics">Interfaz sobre la que dibujar en uso</param>
         /// <param name="connection">Instancia de <see cref="ConnectionManager"/> con la que se está conectado al servidor</param>
         public GameScreen(ContentManager content, GraphicsDevice graphics, ConnectionManager connection) : base (content, graphics)
         {
