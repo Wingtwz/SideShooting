@@ -33,6 +33,10 @@ namespace SideShooting
         /// Indica si el juego debe cerrarse
         /// </summary>
         public static bool DoExit { get; set; }
+        /// <summary>
+        /// Determina si se debe volver a iniciar la música
+        /// </summary>
+        public static bool StartMusic { get; set; } = true;
 
         /// <summary>
         /// Para realizar todas las tareas de dibujado del juego

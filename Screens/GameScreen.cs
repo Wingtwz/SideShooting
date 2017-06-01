@@ -134,6 +134,7 @@ namespace SideShooting.Screens
             if (GameMain.Settings.MusicEnabled)
             {
                 MediaPlayer.Play(gameSong);
+                GameMain.StartMusic = true;
             }
         }
 

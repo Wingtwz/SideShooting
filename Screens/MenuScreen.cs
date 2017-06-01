@@ -60,10 +60,11 @@ namespace SideShooting.Screens
                 menuRect[i] = new Rectangle(x, y, width, height);
             }
 
-            if (GameMain.Settings.MusicEnabled)
+            if (GameMain.Settings.MusicEnabled && GameMain.StartMusic)
             {
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Play(bgSong);
+                GameMain.StartMusic = false;
             }
         }
 
