@@ -63,7 +63,8 @@ namespace SideShooting.Handlers
         /// </summary>
         /// <param name="optionsScreen">Escena de opciones que llama al método</param>
         /// <param name="gameTime">Valor de tiempo actual</param>
-        public static void Options(OptionsScreen optionsScreen, GameTime gameTime)
+        /// <param name="menuSong">Canción que debe sonar en el menú</param>
+        public static void Options(OptionsScreen optionsScreen, GameTime gameTime, Song menuSong)
         {
             MouseState mState = Mouse.GetState();
 
@@ -77,8 +78,16 @@ namespace SideShooting.Handlers
                 else if (optionsScreen.optionsRect[0].Contains(mState.Position))    //music
                 {
                     GameMain.Settings.MusicEnabled = !GameMain.Settings.MusicEnabled;
-                    if (!GameMain.Settings.MusicEnabled)
+                    if (GameMain.Settings.MusicEnabled)
+                    {
+                        MediaPlayer.IsRepeating = true;
+                        MediaPlayer.Play(menuSong);
+                        GameMain.StartMusic = false;
+                    }
+                    else
+                    {
                         MediaPlayer.Stop();
+                    }
                 }
                 else if (optionsScreen.optionsRect[1].Contains(mState.Position))    //sound
                 {

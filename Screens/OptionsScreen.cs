@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SideShooting.Handlers;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace SideShooting.Screens
 {
@@ -39,6 +40,10 @@ namespace SideShooting.Screens
         /// Localización de las opciones del menú
         /// </summary>
         private Vector2[] optionsLocation = new Vector2[2];
+        /// <summary>
+        /// Canción del menú de juego
+        /// </summary>
+        private Song bgSong;
 
         /// <summary>
         /// Inicializa una instancia de la clase
@@ -74,6 +79,7 @@ namespace SideShooting.Screens
             titleFont = Content.Load<SpriteFont>("Fonts/GoooolyTitle");
             bgImage = Content.Load<Texture2D>("Images/SideShooting");
             uiImage = Content.Load<Texture2D>("Images/ui");
+            bgSong = Content.Load<Song>("Audio/menu");
         }
 
         /// <summary>
@@ -117,7 +123,7 @@ namespace SideShooting.Screens
         {
             if (gameActive)
             {
-                InputManager.Options(this, gameTime);
+                InputManager.Options(this, gameTime, bgSong);
             }
         }
 
